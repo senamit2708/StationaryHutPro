@@ -73,20 +73,15 @@ public class SignInUser extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            Log.i(TAG, "user already avaibale");
-//            Navigation.findNavController().navigate(R.id.action_signInUser_to_testFragmentOne);
-            Navigation.findNavController((Activity) context, R.id.btn_phone_number_enter).navigate(R.id.action_signInUser_to_testFragmentOne);
 
-        }
+
         mPhoneNumberField = view.findViewById(R.id.edt_phone_number);
         mPhoneOtp = view.findViewById(R.id.edt_phone_otp);
         btnPhoneNumber = view.findViewById(R.id.btn_phone_number_enter);
         btnSubmit = view.findViewById(R.id.btn_sign_in);
         btnResendOtp = view.findViewById(R.id.btn_resend_otp);
 
-
+        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         btnPhoneNumber.setOnClickListener(new View.OnClickListener() {
@@ -202,11 +197,11 @@ public class SignInUser extends Fragment{
         Log.i(TAG, "the RESULT_CODE number is "+ RESULT_CODE);
         if (RESULT_CODE==10){
             Log.i(TAG, "inside the result_code 10 ");
-            Navigation.findNavController((Activity) context, R.id.btn_phone_number_enter).navigate(R.id.action_signInUser_to_testFragmentOne);
+//            Navigation.findNavController((Activity) context, R.id.btn_phone_number_enter).navigate(R.id.action_signInUser_to_testFragmentOne);
         }
         if (RESULT_CODE==20){
             Log.i(TAG, "inside the result_code 20 ");
-            Navigation.findNavController((Activity) context, R.id.btn_sign_in).navigate(R.id.action_signInUser_to_testFragmentOne);
+//            Navigation.findNavController((Activity) context, R.id.btn_sign_in).navigate(R.id.action_signInUser_to_testFragmentOne);
 
         }
 //        Navigation.findNavController((Activity) context, R.id.btn_phone_number_enter).navigate(R.id.action_signInUser_to_testFragmentOne);
