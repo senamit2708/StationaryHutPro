@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/signInUser">
+
+    <fragment
+        android:id="@+id/signInUser"
+        android:name="com.example.senamit.stationaryhutpro.fragments.SignInUser"
+        android:label="fragment_sign_in_user"
+        tools:layout="@layout/fragment_sign_in_user" >
+        <action
+            android:id="@+id/action_signInUser_to_testFragmentOne"
+            app:destination="@id/testFragmentOne" />
+    </fragment>
+    <fragment
+        android:id="@+id/testFragmentOne"
+        android:name="com.example.senamit.stationaryhutpro.fragments.TestFragmentOne"
+        android:label="fragment_test_one"
+        tools:layout="@layout/fragment_test_one" ></fragment>
+</navigation>
