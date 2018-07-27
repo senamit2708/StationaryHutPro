@@ -3,7 +3,34 @@
     android:orientation="vertical"
     android:id="@+id/linearLayoutSignInFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="200dp">
+    <!--<com.google.android.material.textfield.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
+
+        <!--<com.google.android.material.textfield.TextInputEditText-->
+            <!--app:style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/edt_phone_number"-->
+            <!--android:hint="Mobile Number"/>-->
+
+    <!--</com.google.android.material.textfield.TextInputLayout>-->
+    <!--<com.google.android.material.textfield.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
+
+        <!--<com.google.android.material.textfield.TextInputEditText-->
+            <!--style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/edt_phone_otp"-->
+            <!--android:hint="Mobile Number"/>-->
+
+    <!--</com.google.android.material.textfield.TextInputLayout>-->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
