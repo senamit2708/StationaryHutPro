@@ -3,11 +3,7 @@ package com.example.senamit.stationaryhutpro.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,9 +31,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-public class SignInUser extends Fragment{
+public class SignInUser extends Fragment {
 
     private static final String TAG = SignInUser.class.getSimpleName();
     private static final int SUCCESS_CODE = 99;

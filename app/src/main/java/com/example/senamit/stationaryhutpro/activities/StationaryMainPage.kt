@@ -1,17 +1,22 @@
 package com.example.senamit.stationaryhutpro.activities
 
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AppCompatActivity
+//import android.support.v4.widget.DrawerLayout
+//import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+//import android.support.v7.widget.Toolbar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 
 
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.example.senamit.stationaryhutpro.R
+
 
 class StationaryMainPage : AppCompatActivity() {
 
@@ -38,7 +43,7 @@ class StationaryMainPage : AppCompatActivity() {
         }
         private fun setupActionBar(navController: NavController) {
             drawerLayout = findViewById(R.id.drawer_layout)
-            NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+          setupActionBarWithNavController(this, navController, drawerLayout)
         }
 
         override fun onSupportNavigateUp(): Boolean {
