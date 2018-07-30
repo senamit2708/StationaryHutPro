@@ -26,6 +26,9 @@ android {
 }
 
 dependencies {
+    //lifecycle version
+    def lifecycle_version = "2.0.0-beta01"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
@@ -52,6 +55,17 @@ dependencies {
     //navigation
     implementation 'android.arch.navigation:navigation-fragment:' + rootProject.navigationVersion
     implementation 'android.arch.navigation:navigation-ui:' + rootProject.navigationVersion
+
+    //view model
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1"
+
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0-alpha1"
+
+    implementation 'com.squareup.picasso:picasso:2.3.3'
+    implementation 'com.github.bumptech.glide:glide:3.5.2'
+
 }
 
 // paste json file of firebase else it will give google-service.json exception.

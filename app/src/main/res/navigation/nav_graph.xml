@@ -2,11 +2,39 @@
 <navigation xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/testFragmentOne">
+    app:startDestination="@id/productForSaleView">
 
+    <fragment
+        android:id="@+id/productForSaleView"
+        android:name="com.example.senamit.stationaryhutpro.fragments.ProductForSaleView"
+        android:label="activity_product_for_sale_view"
+        tools:layout="@layout/activity_product_for_sale_view" >
+        <action
+            android:id="@+id/action_productForSaleView_to_productDescription"
+            app:destination="@id/productDescription" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDescription"
+        android:name="com.example.senamit.stationaryhutpro.fragments.ProductDescription"
+        android:label="activity_product_description"
+        tools:layout="@layout/activity_product_description" >
+        <action
+            android:id="@+id/action_productDescription_to_cartProduct"
+            app:destination="@id/cartProduct" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartProduct"
+        android:name="com.example.senamit.stationaryhutpro.fragments.CartProduct"
+        android:label="activity_cart_product"
+        tools:layout="@layout/activity_cart_product" />
+    <fragment
+        android:id="@+id/userNewAddressEntry"
+        android:name="com.example.senamit.stationaryhutpro.fragments.UserNewAddressEntry"
+        android:label="activity_user_newaddress_entry"
+        tools:layout="@layout/activity_user_newaddress_entry" />
     <fragment
         android:id="@+id/testFragmentOne"
         android:name="com.example.senamit.stationaryhutpro.fragments.TestFragmentOne"
         android:label="fragment_test_one"
-        tools:layout="@layout/fragment_test_one" ></fragment>
+        tools:layout="@layout/fragment_test_one" />
 </navigation>
