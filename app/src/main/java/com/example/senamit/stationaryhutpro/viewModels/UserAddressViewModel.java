@@ -22,10 +22,11 @@ public class UserAddressViewModel extends AndroidViewModel {
 
     private static final String TAG = UserAddressViewModel.class.getSimpleName();
 
-
     private static DatabaseReference USER_ADDRESS_REF;
     private MediatorLiveData<List<Address>> addressList;
     private FirebaseQueryLiveData liveData;
+
+    private Address address;
 
 
 
@@ -63,4 +64,8 @@ public class UserAddressViewModel extends AndroidViewModel {
         });
     }
 
+    public void setPaymentAddress(Address address) {
+        this.address = address;
+        Log.i(TAG, "the address in viewmodel is "+this.address);
+    }
 }

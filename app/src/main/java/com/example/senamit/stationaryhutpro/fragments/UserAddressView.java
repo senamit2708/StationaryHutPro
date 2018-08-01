@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.adapters.UserAddressAdapter;
@@ -21,10 +22,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class UserAddressView extends Fragment {
+public class UserAddressView extends Fragment implements UserAddressAdapter.AddressButtonClickInterface{
     private static final String TAG = UserAddressView.class.getSimpleName();
     private UserAddressViewModel mViewModel;
     private FirebaseAuth mFirebaseAuth;
@@ -35,6 +37,8 @@ public class UserAddressView extends Fragment {
     private UserAddressAdapter mAdapter;
 
     private Context context;
+    private Button btnContinue;
+    private Address address;
 
 
     @Nullable
@@ -50,11 +54,15 @@ public class UserAddressView extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         currentUser = mFirebaseAuth.getCurrentUser();
+
+        btnContinue = view.findViewById(R.id.btnContinue);
+
         mRecyclerView = view.findViewById(R.id.recycler_address);
         mLayoutManager = new LinearLayoutManager(context);
-        mAdapter = new UserAddressAdapter(context);
+        mAdapter = new UserAddressAdapter(context, this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
 
 
         mViewModel= ViewModelProviders.of(this).get(UserAddressViewModel.class);
@@ -68,5 +76,25 @@ public class UserAddressView extends Fragment {
                 }
             }
         });
+
+
+
+        btnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewModel.setPaymentAddress(address);
+                Navigation.findNavController(view).navigate(R.id.action_userAddressView_to_paymentSelection);
+            }
+        });
     }
+
+    @Override
+    public void funAddressSelected(Address address, int position) {
+        this.address=address;
+        Log.i(TAG, "the adress mob no is "+address.getMobileNumber());
+    }
+
+
+
+
 }

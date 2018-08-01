@@ -10,5 +10,12 @@
         android:layout_height="wrap_content"
       />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnContinue"
+        android:text="Continue"
+        android:layout_gravity="bottom"/>
+
 
 </LinearLayout>

@@ -45,5 +45,23 @@
         android:id="@+id/userAddressView"
         android:name="com.example.senamit.stationaryhutpro.fragments.UserAddressView"
         android:label="activity_user_address_view"
-        tools:layout="@layout/activity_user_address_view" />
+        tools:layout="@layout/activity_user_address_view" >
+        <action
+            android:id="@+id/action_userAddressView_to_paymentSelection"
+            app:destination="@id/paymentSelection" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentSelection"
+        android:name="com.example.senamit.stationaryhutpro.fragments.PaymentSelection"
+        android:label="activity_payment_selection"
+        tools:layout="@layout/activity_payment_selection" >
+        <action
+            android:id="@+id/action_paymentSelection_to_orderDetails"
+            app:destination="@id/orderDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetails"
+        android:name="com.example.senamit.stationaryhutpro.fragments.OrderDetails"
+        android:label="activity_order_details"
+        tools:layout="@layout/activity_order_details" />
 </navigation>

@@ -1,9 +1,11 @@
 package com.example.senamit.stationaryhutpro.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.senamit.stationaryhutpro.R;
@@ -17,8 +19,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.ViewHolder> {
 
+    private static final String TAG = UserAddressAdapter.class.getSimpleName();
+
     private List<Address> addressList = new ArrayList<>();
     private Context context;
+    private int lastSelectedPosition = -1;
+    private AddressButtonClickInterface mInterface;
+
+    public UserAddressAdapter(Context context, AddressButtonClickInterface mInterface) {
+        this.context = context;
+        this.mInterface = mInterface;
+    }
 
     public UserAddressAdapter(Context context) {
         this.context = context;
@@ -42,6 +53,7 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
             holder.txtCity.setText(addressList.get(position).getCity());
             holder.txtState.setText(addressList.get(position).getState());
             holder.txtPincode.setText(addressList.get(position).getPincode());
+            holder.btnSelected.setChecked(lastSelectedPosition== position);
         }
 
     }
@@ -63,7 +75,7 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView txtFullName;
         TextView txtMobileNumber;
         TextView txtAddressPartOne;
@@ -71,6 +83,7 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
         TextView txtCity;
         TextView txtState;
         TextView txtPincode;
+        RadioButton btnSelected;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtFullName = itemView.findViewById(R.id.txtFullName);
@@ -80,6 +93,38 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
             txtCity = itemView.findViewById(R.id.txtCity);
             txtState = itemView.findViewById(R.id.txtState);
             txtPincode = itemView.findViewById(R.id.txtPincode);
+            btnSelected = itemView.findViewById(R.id.btnSelected);
+            btnSelected.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            lastSelectedPosition = getAdapterPosition();
+            notifyDataSetChanged();
+            Log.i(TAG, "the selected item is "+lastSelectedPosition);
+            Address address = addressList.get(lastSelectedPosition);
+            mInterface.funAddressSelected(address, lastSelectedPosition);
+        }
+
+
+//        @Override
+//        public void onClick(View view) {
+//            if (view == btnSelected){
+//                lastSelectedPosition = getAdapterPosition();
+//
+//                notifyDataSetChanged();
+//                Log.i(TAG, "the selected item is "+lastSelectedPosition);
+//            }
+//            if (view==itemView){
+//                int index = getAdapterPosition();
+//                Log.i(TAG, "view is clicked"+index);
+//            }
+//
+//        }
+    }
+
+    public interface AddressButtonClickInterface{
+        void funAddressSelected(Address address, int position);
     }
 }
