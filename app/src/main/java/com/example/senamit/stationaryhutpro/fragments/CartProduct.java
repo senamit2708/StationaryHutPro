@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.adapters.CartProductAdapter;
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +34,7 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
     private String mUserId;
     //    private UserCart userCart;
     private List<UserCart> userCart;
+    private Button btnPayment;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -55,6 +58,7 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
         mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mUserId = mFirebaseUser.getUid();
 
+        btnPayment =  view.findViewById(R.id.btnPayment);
         mViewModel = ViewModelProviders.of(this).get(ProductCartViewModel.class);
         mRecyclerView = view.findViewById(R.id.recycler_cart);
         mLayoutManager = new LinearLayoutManager(context);
@@ -69,6 +73,13 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
                 if (userCarts!= null){
                     mAdapter.setCartProduct(userCarts);
                 }
+            }
+        });
+
+        btnPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_cartProduct_to_userAddressView);
             }
         });
     }

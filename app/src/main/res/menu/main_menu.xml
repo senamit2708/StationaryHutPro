@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/userNewAddressEntry"
+        android:id="@+id/userAddressEntry"
         android:icon="@drawable/ic_favorite_black"
         android:title="Address"
         android:showAsAction="ifRoom" />

@@ -26,15 +26,24 @@
         android:id="@+id/cartProduct"
         android:name="com.example.senamit.stationaryhutpro.fragments.CartProduct"
         android:label="activity_cart_product"
-        tools:layout="@layout/activity_cart_product" />
-    <fragment
-        android:id="@+id/userNewAddressEntry"
-        android:name="com.example.senamit.stationaryhutpro.fragments.UserNewAddressEntry"
-        android:label="activity_user_newaddress_entry"
-        tools:layout="@layout/activity_user_newaddress_entry" />
+        tools:layout="@layout/activity_cart_product" >
+        <action
+            android:id="@+id/action_cartProduct_to_userAddressView"
+            app:destination="@id/userAddressView" />
+    </fragment>
     <fragment
         android:id="@+id/testFragmentOne"
         android:name="com.example.senamit.stationaryhutpro.fragments.TestFragmentOne"
         android:label="fragment_test_one"
         tools:layout="@layout/fragment_test_one" />
+    <fragment
+        android:id="@+id/userAddressEntry"
+        android:name="com.example.senamit.stationaryhutpro.fragments.UserAddressEntry"
+        android:label="activity_user_newaddress_entry"
+        tools:layout="@layout/activity_user_newaddress_entry" />
+    <fragment
+        android:id="@+id/userAddressView"
+        android:name="com.example.senamit.stationaryhutpro.fragments.UserAddressView"
+        android:label="activity_user_address_view"
+        tools:layout="@layout/activity_user_address_view" />
 </navigation>
