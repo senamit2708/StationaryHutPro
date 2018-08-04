@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 public class UserAddressViewModel extends AndroidViewModel {
@@ -26,7 +27,8 @@ public class UserAddressViewModel extends AndroidViewModel {
     private MediatorLiveData<List<Address>> addressList;
     private FirebaseQueryLiveData liveData;
 
-    private Address address;
+//    private Address address;
+    private MutableLiveData<Address> addressMutableLiveData= new MutableLiveData<Address>();
 
 
 
@@ -65,7 +67,16 @@ public class UserAddressViewModel extends AndroidViewModel {
     }
 
     public void setPaymentAddress(Address address) {
-        this.address = address;
-        Log.i(TAG, "the address in viewmodel is "+this.address);
+//        this.address = address;
+        Log.i(TAG, "the address mobile number is "+address.getMobileNumber());
+
+        addressMutableLiveData.setValue(address);
+        Log.i(TAG, "the address in setAddress is "+addressMutableLiveData);
+    }
+
+    public LiveData<Address> getAddress() {
+        Log.i(TAG, "the address in getAddress is "+addressMutableLiveData);
+        return addressMutableLiveData;
+
     }
 }

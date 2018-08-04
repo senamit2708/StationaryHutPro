@@ -53,7 +53,7 @@ public class UserCart {
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
         result.put("productNumber", productNumber);
-        result.put("date", date);
+        result.put("productPrice", productPrice);
         return result;
     }
 

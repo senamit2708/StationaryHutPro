@@ -63,5 +63,5 @@
         android:id="@+id/orderDetails"
         android:name="com.example.senamit.stationaryhutpro.fragments.OrderDetails"
         android:label="activity_order_details"
-        tools:layout="@layout/activity_order_details" />
+        tools:layout="@layout/activity_new_order_details" />
 </navigation>

@@ -40,6 +40,11 @@ public class UserAddressView extends Fragment implements UserAddressAdapter.Addr
     private Button btnContinue;
     private Address address;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel= ViewModelProviders.of(getActivity()).get(UserAddressViewModel.class);
+    }
 
     @Nullable
     @Override
@@ -65,7 +70,7 @@ public class UserAddressView extends Fragment implements UserAddressAdapter.Addr
 
 
 
-        mViewModel= ViewModelProviders.of(this).get(UserAddressViewModel.class);
+
 
         mViewModel.getAddressList(currentUser.getUid()).observe(this, new Observer<List<Address>>() {
             @Override

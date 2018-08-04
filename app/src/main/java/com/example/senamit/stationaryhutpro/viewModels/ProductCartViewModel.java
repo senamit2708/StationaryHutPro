@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 public class ProductCartViewModel extends AndroidViewModel {
@@ -33,6 +34,8 @@ public class ProductCartViewModel extends AndroidViewModel {
 
     private MediatorLiveData<List<UserCart>> cartLiveData;
     private MediatorLiveData<List<Product>>  productLiveData;
+
+    private MutableLiveData<List<UserCart>> orderedProductList = new MutableLiveData<>();
 
     private String mUserId;
 
@@ -60,6 +63,7 @@ public class ProductCartViewModel extends AndroidViewModel {
     private void loadProductLiveDataTest(final List<UserCart> listProduct) {
 
         Log.i(TAG, "the size of cart is "+listProduct.size());
+
         if (listProduct.size()>0) {
             int size = listProduct.size();
 
@@ -118,5 +122,12 @@ public class ProductCartViewModel extends AndroidViewModel {
         mdataRef = FirebaseDatabase.getInstance().getReference();
         mdataRef.child("users").child(mUserId).child("cart").child(productNumber).removeValue();
 
+    }
+
+    public void setOrderedProduct(List<UserCart> userCartProduct) {
+        orderedProductList.setValue(userCartProduct);
+    }
+    public LiveData<List<UserCart>> getOrderedProduct(){
+       return orderedProductList;
     }
 }

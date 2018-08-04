@@ -15,6 +15,7 @@ import com.example.senamit.stationaryhutpro.viewModels.ProductCartViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -33,16 +34,23 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
     private Context context;
     private String mUserId;
     //    private UserCart userCart;
-    private List<UserCart> userCart;
+
     private Button btnPayment;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private CartProductAdapter mAdapter;
+    List<UserCart> userCartProduct;
 
     private ProductCartViewModel mViewModel;
 
     private FirebaseUser mFirebaseUser;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = ViewModelProviders.of(getActivity()).get(ProductCartViewModel.class);
+    }
 
     @Nullable
     @Override
@@ -59,7 +67,7 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
         mUserId = mFirebaseUser.getUid();
 
         btnPayment =  view.findViewById(R.id.btnPayment);
-        mViewModel = ViewModelProviders.of(this).get(ProductCartViewModel.class);
+
         mRecyclerView = view.findViewById(R.id.recycler_cart);
         mLayoutManager = new LinearLayoutManager(context);
         mAdapter = new CartProductAdapter(context, this);
@@ -71,6 +79,9 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
             @Override
             public void onChanged(@Nullable List<UserCart> userCarts) {
                 if (userCarts!= null){
+                    userCartProduct = new ArrayList<>();
+                    userCartProduct.addAll(userCarts);
+                    Log.i(TAG, "the size of cart is "+userCarts.size());
                     mAdapter.setCartProduct(userCarts);
                 }
             }
@@ -79,6 +90,7 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mViewModel.setOrderedProduct(userCartProduct);
                 Navigation.findNavController(view).navigate(R.id.action_cartProduct_to_userAddressView);
             }
         });
