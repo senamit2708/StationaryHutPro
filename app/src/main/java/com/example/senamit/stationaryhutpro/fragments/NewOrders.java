@@ -33,9 +33,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class OrderDetails extends Fragment {
+public class NewOrders extends Fragment {
 
-    private static final String TAG = OrderDetails.class.getSimpleName();
+    private static final String TAG = NewOrders.class.getSimpleName();
 
     private Context context;
     private UserAddressViewModel mAddressViewModel;

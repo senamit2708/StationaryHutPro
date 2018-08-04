@@ -61,7 +61,12 @@
     </fragment>
     <fragment
         android:id="@+id/orderDetails"
-        android:name="com.example.senamit.stationaryhutpro.fragments.OrderDetails"
+        android:name="com.example.senamit.stationaryhutpro.fragments.NewOrders"
         android:label="activity_order_details"
         tools:layout="@layout/activity_new_order_details" />
+    <fragment
+        android:id="@+id/userOrders"
+        android:name="com.example.senamit.stationaryhutpro.fragments.UserOrders"
+        android:label="activity_all_orders"
+        tools:layout="@layout/activity_all_orders" />
 </navigation>

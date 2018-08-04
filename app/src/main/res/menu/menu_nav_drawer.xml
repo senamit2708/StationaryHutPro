@@ -8,5 +8,9 @@
         android:id="@+id/testFragmentOne"
         android:icon="@drawable/ic_favorite_black"
         android:title="FirstTest" />
+    <item
+        android:id="@+id/userOrders"
+        android:icon="@drawable/ic_favorite_black"
+        android:title="Orders" />
 
 </menu>

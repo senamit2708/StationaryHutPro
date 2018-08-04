@@ -149,6 +149,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="userOrders">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-750" />
+                            <option name="y" value="-680" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                 </map>
               </option>
             </LayoutPositions>
