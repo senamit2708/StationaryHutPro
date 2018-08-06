@@ -44,6 +44,7 @@ class StationaryMainPage : AppCompatActivity() {
         setupActionBar(navController)
         setupNavigationMenu(navController)
 
+
         Toast.makeText(this, "sorry", Toast.LENGTH_SHORT).show();
 
     }
