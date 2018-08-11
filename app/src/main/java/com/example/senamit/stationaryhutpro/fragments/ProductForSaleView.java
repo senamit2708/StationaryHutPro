@@ -68,6 +68,12 @@ public class ProductForSaleView extends Fragment {
         mAdapter = new ProductForSaleAdapter(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+
 
 //        fabButton = view.findViewById(R.id.fab);
 

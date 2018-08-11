@@ -53,6 +53,9 @@ public class ProductForSaleAdapter extends RecyclerView.Adapter<ProductForSaleAd
             holder.txtProductPrice.setText(product.get(position).getProductPrice());
             String imageUrl = product.get(position).getImageUrl();
             Picasso.with(context).load(imageUrl).into(holder.imageProduct);
+            Log.i(TAG, "the position is "+position);
+            Log.i(TAG, "the imageUrl is  "+imageUrl);
+            Log.i(TAG, "the product number is "+product.get(position).getProductNumber());
         }else {
             holder.txtProductNumber.setText("no product found");
             holder.txtProductName.setText("no product found");
@@ -63,7 +66,7 @@ public class ProductForSaleAdapter extends RecyclerView.Adapter<ProductForSaleAd
     @Override
     public int getItemCount() {
         if (product!= null){
-            Log.i(TAG, "the size of product is "+product.size());
+//            Log.i(TAG, "the size of product is "+product.size());
             return product.size();
         }else{
             return 0;

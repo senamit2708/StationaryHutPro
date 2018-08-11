@@ -2,19 +2,17 @@ package com.example.senamit.stationaryhutpro.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-//import android.support.annotation.NonNull;
-//import android.support.annotation.Nullable;
-//import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +35,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+//import android.support.annotation.NonNull;
+//import android.support.annotation.Nullable;
+//import android.support.v7.app.AppCompatActivity;
+//import com.example.senamit.stationaryhutpro.R;
+
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = SignInActivity.class.getSimpleName();
@@ -51,6 +54,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private EditText mPhoneNumberField;
     private EditText mPhoneOtp;
+    private TextView mTxtResendOtp;
+    private TextView mTxtSignInHeadline;
     private Button btnPhoneNumber;
     private Button btnSubmit;
     private Button btnResendOtp;
@@ -65,6 +70,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         mPhoneNumberField = findViewById(R.id.edt_phone_number);
         mPhoneOtp = findViewById(R.id.edt_phone_otp);
+        mTxtResendOtp = findViewById(R.id.txtResendOtp);
+        mTxtSignInHeadline = findViewById(R.id.txtSignInHeadline);
         btnPhoneNumber = findViewById(R.id.btn_phone_number_enter);
         btnSubmit = findViewById(R.id.btn_sign_in);
         btnResendOtp = findViewById(R.id.btn_resend_otp);
@@ -78,6 +85,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Rubik-Bold.ttf");
+
+        mTxtSignInHeadline.setTypeface(customFont);
+
 
         mCallback = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -226,6 +238,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 btnPhoneNumber.setVisibility(View.GONE);
                 txtStylePhoneOtp.setVisibility(View.VISIBLE);
                 btnSubmit.setVisibility(View.VISIBLE);
+                mTxtResendOtp.setVisibility(View.VISIBLE);
                 btnResendOtp.setVisibility(View.VISIBLE);
 
                 break;
