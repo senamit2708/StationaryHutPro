@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/productForSaleView"
         android:name="com.example.senamit.stationaryhutpro.fragments.ProductForSaleView"
-        android:label="activity_product_for_sale_view"
-        tools:layout="@layout/activity_product_for_sale_view" >
+        android:label="Products"
+        tools:layout="@layout/activity_product_for_sale_view">
         <action
             android:id="@+id/action_productForSaleView_to_productDescription"
             app:destination="@id/productDescription" />
@@ -16,8 +16,8 @@
     <fragment
         android:id="@+id/productDescription"
         android:name="com.example.senamit.stationaryhutpro.fragments.ProductDescription"
-        android:label="activity_product_description"
-        tools:layout="@layout/activity_product_description" >
+        android:label="Product Description"
+        tools:layout="@layout/activity_product_description">
         <action
             android:id="@+id/action_productDescription_to_cartProduct"
             app:destination="@id/cartProduct" />

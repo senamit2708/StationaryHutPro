@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:layout_editor_absoluteY="25dp">
 
     <ImageView
         android:id="@+id/imageProduct"
-        android:layout_width="300dp"
-        android:layout_height="301dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"/>-->
 
     <TextView
         android:id="@+id/txtProductName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Product Name"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageProduct" />
 
@@ -26,33 +34,53 @@
         android:id="@+id/txtProductPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Product price"
-        app:layout_constraintEnd_toEndOf="@+id/txtProductName"
-        app:layout_constraintStart_toStartOf="@+id/txtProductName"
-        app:layout_constraintTop_toBottomOf="@+id/txtProductName" />
-
-    <Button
-        android:id="@+id/btnAddToCart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="79dp"
-        android:layout_marginBottom="81dp"
-        android:text="Add to Cart"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtProductName" />
 
-    <Button
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="4">
+        <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddToCart"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+        android:layout_weight="2"
+        android:text="Add to Cart"/>
+        <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBuyNow"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
-        android:text="Buy Now"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btnAddToCart"
-        app:layout_constraintStart_toEndOf="@+id/btnAddToCart" />
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        style="@style/Widget.MaterialComponents.Button"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:layout_weight="2"
+        android:text="Buy Now"/>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
