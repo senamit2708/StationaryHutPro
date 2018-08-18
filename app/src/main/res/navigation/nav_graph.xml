@@ -28,8 +28,9 @@
         android:label="activity_cart_product"
         tools:layout="@layout/activity_cart_product" >
         <action
-            android:id="@+id/action_cartProduct_to_userAddressView"
-            app:destination="@id/userAddressView" />
+            android:id="@+id/action_cartProduct_to_orderDelivery"
+            app:clearTask="false"
+            app:destination="@id/orderDelivery" />
     </fragment>
     <fragment
         android:id="@+id/testFragmentOne"
@@ -40,12 +41,15 @@
         android:id="@+id/userAddressEntry"
         android:name="com.example.senamit.stationaryhutpro.fragments.UserAddressEntry"
         android:label="activity_user_newaddress_entry"
-        tools:layout="@layout/activity_user_newaddress_entry" />
+        tools:layout="@layout/activity_user_newaddress_entry" ></fragment>
     <fragment
         android:id="@+id/userAddressView"
         android:name="com.example.senamit.stationaryhutpro.fragments.UserAddressView"
         android:label="activity_user_address_view"
         tools:layout="@layout/activity_user_address_view" >
+        <action
+            android:id="@+id/action_userAddressView_to_userAddressEntry"
+            app:destination="@id/userAddressEntry" />
         <action
             android:id="@+id/action_userAddressView_to_paymentSelection"
             app:destination="@id/paymentSelection" />
@@ -57,7 +61,8 @@
         tools:layout="@layout/activity_payment_selection" >
         <action
             android:id="@+id/action_paymentSelection_to_orderDetails"
-            app:destination="@id/orderDetails" />
+            app:destination="@id/orderDetails"
+            app:popUpTo="@+id/productForSaleView" />
     </fragment>
     <fragment
         android:id="@+id/orderDetails"
@@ -69,4 +74,17 @@
         android:name="com.example.senamit.stationaryhutpro.fragments.UserOrders"
         android:label="activity_all_orders"
         tools:layout="@layout/activity_all_orders" />
+    <fragment
+        android:id="@+id/orderDelivery"
+        android:name="com.example.senamit.stationaryhutpro.fragments.OrderDelivery"
+        android:label="OrderDelivery" >
+        <action
+            android:id="@+id/action_orderDelivery_to_paymentSelection"
+            app:destination="@id/paymentSelection" />
+        <action
+            android:id="@+id/action_orderDelivery_to_userAddressView"
+            app:clearTask="false"
+            app:destination="@id/userAddressView"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

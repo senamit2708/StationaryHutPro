@@ -5,10 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.models.UserCart;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,11 @@ public class ProductOrderedAdapter extends RecyclerView.Adapter<ProductOrderedAd
         Log.i(TAG, "inside onbind view holder "+mOrderList.get(position).getProductNumber());
         holder.txtProductName.setText(mOrderList.get(position).getProductNumber());
         holder.txtProductPrice.setText(mOrderList.get(position).getProductPrice());
+        holder.txtProductNumber.setText(mOrderList.get(position).getProductNumber());
+        holder.txtProductQuantity.setText(Integer.toString(mOrderList.get(position).getQuantity()));
+        holder.txtProductOrderStatus.setText(mOrderList.get(position).getOrderStatus());
+        holder.txtProductOrderedDate.setText(mOrderList.get(position).getDate());
+        Picasso.with(context).load(mOrderList.get(position).getImageUrl()).into(holder.imageProduct);
 
     }
 
@@ -46,7 +53,7 @@ public class ProductOrderedAdapter extends RecyclerView.Adapter<ProductOrderedAd
     public int getItemCount() {
         if (mOrderList!= null){
 
-            Log.i(TAG, "inside getItemcount "+mOrderList.size());
+            Log.i(TAG, "inside getItemcount inside adapter is  "+mOrderList.size());
             return mOrderList.size();
         }else {
             return 0;
@@ -55,7 +62,7 @@ public class ProductOrderedAdapter extends RecyclerView.Adapter<ProductOrderedAd
 
     public void setOrderedProduct(List<UserCart> orderList) {
         if (orderList!= null){
-            Log.i(TAG, "the orderList is "+orderList.size());
+            Log.i(TAG, "the orderList inside adapter is "+orderList.size());
             mOrderList = orderList;
             notifyDataSetChanged();
         }
@@ -66,12 +73,21 @@ public class ProductOrderedAdapter extends RecyclerView.Adapter<ProductOrderedAd
         TextView txtProductName;
         TextView txtProductNumber;
         TextView txtProductPrice;
+        TextView txtProductQuantity;
+        TextView txtProductOrderStatus;
+        TextView txtProductOrderedDate;
+        ImageView imageProduct;
         
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtProductName = itemView.findViewById(R.id.txtProductName);
             txtProductNumber = itemView.findViewById(R.id.txtProductNumber);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
+            txtProductQuantity = itemView.findViewById(R.id.txtQuantity);
+            txtProductOrderStatus = itemView.findViewById(R.id.txtOrderedProductStatus);
+            txtProductOrderedDate = itemView.findViewById(R.id.txtProductOrderDate);
+            imageProduct = itemView.findViewById(R.id.imageProduct);
+
         }
     }
 }

@@ -19,7 +19,33 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_cartProduct_to_userAddressView">
+                            <entry key="action_cartProduct_to_orderDelivery">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="orderDelivery">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="20" />
+                            <option name="y" value="20" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_orderDelivery_to_paymentSelection">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_orderDelivery_to_userAddressView">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -121,8 +147,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-523" />
-                            <option name="y" value="-679" />
+                            <option name="x" value="-821" />
+                            <option name="y" value="26" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -133,13 +159,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="64" />
-                            <option name="y" value="-648" />
+                            <option name="x" value="-516" />
+                            <option name="y" value="47" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_userAddressView_to_paymentSelection">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_userAddressView_to_userAddressEntry">
                               <value>
                                 <LayoutPositions />
                               </value>

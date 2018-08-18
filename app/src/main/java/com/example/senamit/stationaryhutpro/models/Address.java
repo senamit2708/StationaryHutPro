@@ -17,11 +17,13 @@ public class Address {
     private String city;
     private String state;
     private int status;
+    private String date;
+    private String firebaseKey;
 
     public Address() {
     }
 
-    public Address(String fullName, String mobileNumber, String pincode, String addressPartOne, String addressPartTwo, String landMark, String city, String state, int status) {
+    public Address(String fullName, String mobileNumber, String pincode, String addressPartOne, String addressPartTwo, String landMark, String city, String state, int status, String date) {
         this.fullName = fullName;
         this.mobileNumber = mobileNumber;
         this.pincode = pincode;
@@ -31,6 +33,21 @@ public class Address {
         this.city = city;
         this.state = state;
         this.status = status;
+        this.date = date;
+    }
+
+    public Address(String fullName, String mobileNumber, String pincode, String addressPartOne, String addressPartTwo, String landMark, String city, String state, int status, String date, String firebaseKey) {
+        this.fullName = fullName;
+        this.mobileNumber = mobileNumber;
+        this.pincode = pincode;
+        this.addressPartOne = addressPartOne;
+        this.addressPartTwo = addressPartTwo;
+        this.landMark = landMark;
+        this.city = city;
+        this.state = state;
+        this.status = status;
+        this.date = date;
+        this.firebaseKey = firebaseKey;
     }
 
     public String getFullName() {
@@ -105,6 +122,22 @@ public class Address {
         this.state = state;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getFirebaseKey() {
+        return firebaseKey;
+    }
+
+    public void setFirebaseKey(String firebaseKey) {
+        this.firebaseKey = firebaseKey;
+    }
+
     @Exclude
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
@@ -117,6 +150,8 @@ public class Address {
         result.put("city", city);
         result.put("state", state);
         result.put("status", status);
+        result.put("date", date);
+        result.put("firebaseKey",firebaseKey);
 
         return result;
     }

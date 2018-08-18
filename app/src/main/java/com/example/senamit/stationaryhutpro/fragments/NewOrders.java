@@ -14,6 +14,7 @@ import com.example.senamit.stationaryhutpro.models.UserCart;
 import com.example.senamit.stationaryhutpro.viewModels.OrderedProductViewModel;
 import com.example.senamit.stationaryhutpro.viewModels.ProductCartViewModel;
 import com.example.senamit.stationaryhutpro.viewModels.UserAddressViewModel;
+import com.example.senamit.stationaryhutpro.viewModels.UsersAllOrdersViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +42,7 @@ public class NewOrders extends Fragment {
     private UserAddressViewModel mAddressViewModel;
     private ProductCartViewModel mProductCardViewModel;
     private OrderedProductViewModel mOrderedProductViewModel;
+    private UsersAllOrdersViewModel mViewModel;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -59,6 +61,8 @@ public class NewOrders extends Fragment {
        mAddressViewModel = ViewModelProviders.of(getActivity()).get(UserAddressViewModel.class);
        mProductCardViewModel = ViewModelProviders.of(getActivity()).get(ProductCartViewModel.class);
        mOrderedProductViewModel = ViewModelProviders.of(getActivity()).get(OrderedProductViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(UsersAllOrdersViewModel.class);
+
 
 
     }
@@ -77,20 +81,36 @@ public class NewOrders extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
          userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
        address= mAddressViewModel.getAddress().getValue();
        orderedProduct = mProductCardViewModel.getOrderedProduct().getValue();
 
          writeNewPost(orderedProduct);
-//       if (check>0){
-//           Log.i(TAG, "the size of check is"+check);
-//       }
-//        Log.i(TAG, "the size of check is"+check);
 
         mRecyclerView = view.findViewById(R.id.recycler_order);
         mLayoutManager = new LinearLayoutManager(context);
         mAdapter = new ProductOrderedAdapter(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+//        mOrderedProductViewModel.getOrderedProduct(userId).observe(this, new Observer<List<UserCart>>() {
+//            @Override
+//            public void onChanged(List<UserCart> orderList) {
+////                List<UserCart> uniqueProduct;
+//                if (orderList.size()>0){
+//                    Log.i(TAG, "the size of orderlist in java class is "+orderList.size());
+//
+//                    mAdapter.setOrderedProduct(orderList);
+//
+//
+//                }
+//                else{
+//                    Log.i(TAG, "userCarts is empty");
+//                }
+//
+//            }
+//        });
+
 
     }
 
@@ -99,16 +119,22 @@ public class NewOrders extends Fragment {
     private void writeNewPost(List<UserCart> orderedProduct) {
         final int count = orderedProduct.size();
          keyList = new ArrayList<>();
+         final List<String> productNumberList = new ArrayList<>();
 
 
         Map<String, Object> addressValue = address.toMap();
         for (int i=0; i<count; i++){
             final int total = i+1;
             UserCart userCart = orderedProduct.get(i);
-            Map<String, Object> productValues = userCart.toMap();
+            userCart.setOrderStatus("CONFIRMED");
+            final String keyOrder = FirebaseDatabase.getInstance().getReference("/users/"+userId+"/order").push().getKey();
+            userCart.setCartProductKey(keyOrder);
+            String productNumber = userCart.getProductNumber();
+            productNumberList.add(keyOrder);
+            Map<String, Object> productValues = userCart.toMapFinalOrderEntry();
             Map<String, Object> childUpdate = new HashMap<>();
             final Map<String, Object> childUpdateAddress = new HashMap<>();
-            final String keyOrder = FirebaseDatabase.getInstance().getReference("/users/"+userId+"/order").push().getKey();
+            FirebaseDatabase.getInstance().getReference("/users/"+userId+"/order/"+keyOrder).child("orderConfirmation").setValue(1);
             childUpdate.put("/users/"+userId+"/order/"+keyOrder+"/product", productValues);
             childUpdateAddress.put("/users/"+userId+"/order/"+keyOrder+"/address", addressValue);
             Log.i(TAG, "inside the writeNewPost for loop "+i);
@@ -127,7 +153,7 @@ public class NewOrders extends Fragment {
                             Log.i(TAG, "total is "+total);
                             if (total==count){
                                 Log.i(TAG, "the size of final keyList is "+keyList.size());
-                                productDetails(keyList);
+                                productDetails(productNumberList);
                             }
 
 
@@ -143,20 +169,27 @@ public class NewOrders extends Fragment {
         }
     }
 
-    private void productDetails(List<String> keyList) {
+    private void productDetails(final List<String> searchProductNumber) {
         mDatabase.child("users").child(userId).child("cart").removeValue();
-        Log.i(TAG, "inside product details list "+keyList.size());
-        mOrderedProductViewModel.getOrderedProduct(keyList, userId).observe(this, new Observer<List<UserCart>>() {
+        mViewModel.getNewOrders(userId).observe(this, new Observer<List<UserCart>>() {
+            List<UserCart> cartList;
             @Override
-            public void onChanged(List<UserCart> orderList) {
-                if (orderList.size()>0){
-                   mAdapter.setOrderedProduct(orderList);
-                }
-                else{
-                    Log.i(TAG, "userCarts is empty");
-                }
-
+            public void onChanged(List<UserCart> userCarts) {
+             if (userCarts!= null){
+                 cartList = new ArrayList<>();
+                 for (String productNumber : searchProductNumber){
+                     for (UserCart cartProduct : userCarts  ){
+                         if (cartProduct.getCartProductKey().equals(productNumber)){
+                             cartList.add(cartProduct);
+                         }
+                     }
+                 }
+                 mAdapter.setOrderedProduct(cartList);
+             }
             }
         });
     }
+
+
+//
 }

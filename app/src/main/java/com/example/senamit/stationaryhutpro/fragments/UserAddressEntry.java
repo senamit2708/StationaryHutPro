@@ -9,20 +9,28 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.models.Address;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 public class UserAddressEntry extends Fragment {
 
@@ -63,7 +71,7 @@ public class UserAddressEntry extends Fragment {
         txtAddressPartTwo = view.findViewById(R.id.txtAddressPartTwo);
         txtCity = view.findViewById(R.id.txtCity);
         txtState = view.findViewById(R.id.txtState);
-        txtLandMark = view.findViewById(R.id.txtLandMark);
+//        txtLandMark = view.findViewById(R.id.txtLandMark);
         btnSubmit = view.findViewById(R.id.btnSubmit);
          currentUser = mFirebaseAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -72,33 +80,47 @@ public class UserAddressEntry extends Fragment {
             public void onClick(View view) {
                 int check = validateData();
                 if (check==0){
-                    firebaseAddressUpload();
+                firebaseAddressUpload(view);
                 }
+
             }
         });
 
     }
 
-    private void firebaseAddressUpload() {
+    private void firebaseAddressUpload(final View view) {
 
         String fullName = txtFullName.getText().toString();
          String mobileNumber= txtMobileNumber.getText().toString();
          String pincode=txtPincode.getText().toString();
          String addressPartOne=txtAddressPartOne.getText().toString();
          String addressPartTwo=txtAddressPartTwo.getText().toString();
-         String landMark=txtLandMark.getText().toString();
+//         String landMark=txtLandMark.getText().toString();
          String city=txtCity.getText().toString();
          String state=txtState.getText().toString();
-         int status=1;
+         String date = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(new Date());
+
+        int status=1;
+        String key = mDatabase.child("users").child(currentUser.getUid()).child("address").push().getKey();
 
         Address address = new Address(fullName, mobileNumber, pincode, addressPartOne, addressPartTwo,
-                landMark, city, state,status);
+                null, city, state,status, date, key);
         Map<String, Object> addressValue = address.toMap();
         Map<String, Object> childUpdate = new HashMap<>();
 //        childUpdate.put("/users/"+currentUser+"/address")
-        String key = mDatabase.child("users").child(currentUser.getUid()).child("address").push().getKey();
         childUpdate.put("/users/"+currentUser.getUid()+"/address/"+key, addressValue);
-        mDatabase.updateChildren(childUpdate);
+        mDatabase.updateChildren(childUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(Task<Void> task) {
+                Navigation.findNavController(view).popBackStack(R.id.userAddressEntry, true);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(context, "Unable to add address", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private int validateData() {

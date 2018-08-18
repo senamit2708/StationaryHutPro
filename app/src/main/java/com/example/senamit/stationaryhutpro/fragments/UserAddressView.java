@@ -38,6 +38,7 @@ public class UserAddressView extends Fragment implements UserAddressAdapter.Addr
 
     private Context context;
     private Button btnContinue;
+    private Button btnAddNewAddress;
     private Address address;
 
     @Override
@@ -61,6 +62,7 @@ public class UserAddressView extends Fragment implements UserAddressAdapter.Addr
         currentUser = mFirebaseAuth.getCurrentUser();
 
         btnContinue = view.findViewById(R.id.btnContinue);
+        btnAddNewAddress = view.findViewById(R.id.btnAddNewAddress);
 
         mRecyclerView = view.findViewById(R.id.recycler_address);
         mLayoutManager = new LinearLayoutManager(context);
@@ -89,8 +91,21 @@ public class UserAddressView extends Fragment implements UserAddressAdapter.Addr
             public void onClick(View view) {
                 mViewModel.setPaymentAddress(address);
                 Navigation.findNavController(view).navigate(R.id.action_userAddressView_to_paymentSelection);
+
+//                Navigation.findNavController(view).popBackStack(R.id.userAddressView, true); --this line of code is popbackstack
             }
         });
+
+        btnAddNewAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_userAddressView_to_userAddressEntry);
+
+            }
+        });
+
+
+
     }
 
     @Override

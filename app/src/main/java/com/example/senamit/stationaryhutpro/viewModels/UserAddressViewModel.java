@@ -24,8 +24,11 @@ public class UserAddressViewModel extends AndroidViewModel {
     private static final String TAG = UserAddressViewModel.class.getSimpleName();
 
     private static DatabaseReference USER_ADDRESS_REF;
+    private static DatabaseReference DELIVERY_ADDRESS_REF;
     private MediatorLiveData<List<Address>> addressList;
+    private MediatorLiveData<Address> deliveryAddress;
     private FirebaseQueryLiveData liveData;
+    private FirebaseQueryLiveData deliveryAddressLiveData;
 
 //    private Address address;
     private MutableLiveData<Address> addressMutableLiveData= new MutableLiveData<Address>();
@@ -78,5 +81,26 @@ public class UserAddressViewModel extends AndroidViewModel {
         Log.i(TAG, "the address in getAddress is "+addressMutableLiveData);
         return addressMutableLiveData;
 
+    }
+
+    public LiveData<Address> getRecentlyUsedAddress(String uId) {
+        if (deliveryAddress == null){
+            deliveryAddress = new MediatorLiveData<>();
+            DELIVERY_ADDRESS_REF = FirebaseDatabase.getInstance().getReference("/users/"+uId+"/address");
+            deliveryAddressLiveData = new FirebaseQueryLiveData(DELIVERY_ADDRESS_REF.limitToFirst(1));
+            loadDeliveryAddress();
+        }
+        return deliveryAddress;
+    }
+
+    private void loadDeliveryAddress() {
+        deliveryAddress.addSource(deliveryAddressLiveData, new Observer<DataSnapshot>() {
+            @Override
+            public void onChanged(DataSnapshot dataSnapshot) {
+                Address address = dataSnapshot.getValue(Address.class);
+                Log.i(TAG, "the adress is "+address.getFullName());
+                deliveryAddress.setValue(address);
+            }
+        });
     }
 }

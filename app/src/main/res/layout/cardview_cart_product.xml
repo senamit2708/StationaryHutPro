@@ -15,15 +15,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="300dp">
 
             <ImageView
                 android:id="@+id/imageProduct"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:scaleType="centerInside"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -64,13 +64,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="50dp"
                 android:text="Quantity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtProductPrice" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/txtProductQA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -95,24 +95,33 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRemove"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text="Remove"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-               />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRemove"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="Remove" />
 
                 <com.google.android.material.button.MaterialButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Save for later"
-                android:id="@+id/btnSaveForLater"
+                    android:id="@+id/btnSaveForLater"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    android:text="Save for later" />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="Add"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txtProductQA"
+                app:layout_constraintStart_toEndOf="@+id/txtProductQA" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -121,32 +130,3 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="20dp"-->
-    <!--android:id="@+id/imageProduct"-->
-    <!--android:scaleType="centerInside" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/txtProductName" />-->
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/txtProductNumber" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/txtProductPrice"/>-->
-    <!--<Button-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Remove"-->
-    <!--android:id="@+id/btnRemove"/>-->
-    <!--<Button-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Save for later"-->
-    <!--android:id="@+id/btnSaveForLater"/>-->

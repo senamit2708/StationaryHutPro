@@ -5,10 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.models.UserCart;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,11 @@ public class UserAllOrdersAdapter extends RecyclerView.Adapter<UserAllOrdersAdap
         if (orderList!=null){
             holder.txtProductNumber.setText(orderList.get(position).getProductNumber());
             holder.txtProductPrice.setText(orderList.get(position).getProductPrice());
+            holder.txtProductName.setText(orderList.get(position).getProductNumber());
+            holder.txtProductQuantity.setText(Integer.toString(orderList.get(position).getQuantity()));
+            holder.txtProductOrderStatus.setText(orderList.get(position).getOrderStatus());
+            holder.txtProductOrderedDate.setText(orderList.get(position).getDate());
+            Picasso.with(context).load(orderList.get(position).getImageUrl()).into(holder.imageProduct);
         }
     }
 
@@ -69,11 +76,19 @@ public class UserAllOrdersAdapter extends RecyclerView.Adapter<UserAllOrdersAdap
         TextView txtProductName;
         TextView txtProductNumber;
         TextView txtProductPrice;
+        TextView txtProductQuantity;
+        TextView txtProductOrderStatus;
+        TextView txtProductOrderedDate;
+        ImageView imageProduct;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtProductName = itemView.findViewById(R.id.txtProductName);
             txtProductNumber = itemView.findViewById(R.id.txtProductNumber);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
+            txtProductQuantity = itemView.findViewById(R.id.txtQuantity);
+            txtProductOrderStatus = itemView.findViewById(R.id.txtOrderedProductStatus);
+            txtProductOrderedDate = itemView.findViewById(R.id.txtProductOrderDate);
+            imageProduct = itemView.findViewById(R.id.imageProduct);
         }
     }
 }

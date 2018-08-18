@@ -21,7 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -40,12 +43,17 @@ public class ProductDescription extends Fragment implements View.OnClickListener
 
     private Context context;
     private String mProductNumber;
+    private String mProductName;
+    private String mProductPrice;
+    private String mImageUrl;
     private int clickedItemIndex;
     private Product product;
     private String userId;
+    private String date;
 
     private TextView mTxtProductName;
     private TextView mTxtProductPrice;
+    private TextView mTxtProductNumber;
     private ImageView mProductImage;
     private Button mBtnAddToCart;
     private Button mBtnBuyNow;
@@ -79,12 +87,15 @@ public class ProductDescription extends Fragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
         mTxtProductName = view.findViewById(R.id.txtProductName);
         mTxtProductPrice = view.findViewById(R.id.txtProductPrice);
+        mTxtProductNumber = view.findViewById(R.id.txtProductNumber);
         mProductImage = view.findViewById(R.id.imageProduct);
         mBtnAddToCart = view.findViewById(R.id.btnAddToCart);
         mBtnBuyNow = view.findViewById(R.id.btnBuyNow);
 
         mBtnBuyNow.setOnClickListener(this);
         mBtnAddToCart.setOnClickListener(this);
+
+         date = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(new Date());
 
         mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userId = mFirebaseUser.getUid();
@@ -101,8 +112,13 @@ public class ProductDescription extends Fragment implements View.OnClickListener
                     Log.i(TAG, "inside onChanged method of livedata observer of product desc");
                     product= dataSnapshot.getValue(Product.class);
                     Log.i(TAG, "the product is "+product);
+                    mProductName = product.getProductName();
+                    mProductPrice = product.getProductPrice();
+                    mImageUrl = product.getImageUrl();
                     mTxtProductName.setText(product.getProductName());
                     mTxtProductPrice.setText(product.getProductPrice());
+                    mTxtProductNumber.setText(product.getProductNumber());
+
                     Picasso.with(context).load(product.getImageUrl()).into(mProductImage);
 
                 }
@@ -125,7 +141,8 @@ public class ProductDescription extends Fragment implements View.OnClickListener
         }
     }
     private void pushProductToCart() {
-        UserCart cart = new UserCart(mProductNumber);
+        UserCart cart = new UserCart(mProductNumber, date, mProductPrice, mProductName, mImageUrl);
+        cart.setQuantity(1);
         Map<String, Object> cartValue = cart.toMap();
         Map<String, Object> childUpdate = new HashMap<>();
         Log.i(TAG, "username is "+mFirebaseUser.getUid());

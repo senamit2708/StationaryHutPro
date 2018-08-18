@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.senamit.stationaryhutpro.R;
-import com.example.senamit.stationaryhutpro.adapters.CartProductAdapter;
+import com.example.senamit.stationaryhutpro.adapters.DeliveryProductAdapter;
+import com.example.senamit.stationaryhutpro.models.Address;
 import com.example.senamit.stationaryhutpro.models.UserCart;
 import com.example.senamit.stationaryhutpro.viewModels.ProductCartViewModel;
+import com.example.senamit.stationaryhutpro.viewModels.UserAddressViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -27,22 +29,24 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CartProduct extends Fragment implements CartProductAdapter.ButtonClickInterface {
-
-    private static final String TAG = CartProduct.class.getSimpleName();
+public class OrderDelivery extends Fragment {
+    private static final String TAG = OrderDelivery.class.getSimpleName();
 
     private Context context;
     private String mUserId;
     //    private UserCart userCart;
 
     private Button btnPayment;
+//    private Button btnAddress;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private CartProductAdapter mAdapter;
+    private DeliveryProductAdapter mAdapter;
     List<UserCart> userCartProduct;
 
     private ProductCartViewModel mViewModel;
+    private UserAddressViewModel mViewModelUserAddress;
+
 
     private FirebaseUser mFirebaseUser;
 
@@ -50,13 +54,14 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(getActivity()).get(ProductCartViewModel.class);
+        mViewModelUserAddress = ViewModelProviders.of(getActivity()).get(UserAddressViewModel.class);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         context= container.getContext();
-        View view = inflater.inflate(R.layout.activity_cart_product, container, false);
+        View view = inflater.inflate(R.layout.activity_order_delivery, container, false);
         return view;
     }
 
@@ -67,10 +72,11 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
         mUserId = mFirebaseUser.getUid();
 
         btnPayment =  view.findViewById(R.id.btnPayment);
+//        btnAddress = view.findViewById(R.id.btnAddress);
 
         mRecyclerView = view.findViewById(R.id.recycler_cart);
         mLayoutManager = new LinearLayoutManager(context);
-        mAdapter = new CartProductAdapter(context, this);
+        mAdapter = new DeliveryProductAdapter(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -87,24 +93,28 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
             }
         });
 
+        mViewModelUserAddress.getRecentlyUsedAddress(mUserId).observe(this, new Observer<Address>() {
+            @Override
+            public void onChanged(Address address) {
+                Log.i(TAG, "the adress is  "+address.getDate());
+            }
+        });
+
+
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mViewModel.setOrderedProduct(userCartProduct);
-                Navigation.findNavController(view).navigate(R.id.action_cartProduct_to_orderDelivery);
+                Navigation.findNavController(view).navigate(R.id.action_orderDelivery_to_userAddressView);
             }
         });
+
+//        btnAddress.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Navigation.findNavController(view).navigate(R.id.action_orderDelivery_to_userAddressView);
+//            }
+//        });
     }
 
-    @Override
-    public void funRemoveBtnClick(String productNumber, int position) {
-        Log.i(TAG, "the product number fo product is  "+productNumber +"  position is "+ position);
-        mViewModel.removeProductFromCart(productNumber);
-    }
-
-    @Override
-    public void funAddProductQuantity(String productNumber, int quantity) {
-        Log.i(TAG, "inside funaddproductqunaity "+ productNumber +"quantity"+quantity);
-        mViewModel.addProductQuantityToCart(productNumber, quantity);
-    }
 }

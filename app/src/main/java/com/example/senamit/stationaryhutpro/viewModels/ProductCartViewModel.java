@@ -130,4 +130,10 @@ public class ProductCartViewModel extends AndroidViewModel {
     public LiveData<List<UserCart>> getOrderedProduct(){
        return orderedProductList;
     }
+
+    public void addProductQuantityToCart(String productNumber, int quantity) {
+        Log.i(TAG, "in view model the addquantity "+productNumber +"  quantity "+quantity);
+        mdataRef = FirebaseDatabase.getInstance().getReference();
+        mdataRef.child("users").child(mUserId).child("cart").child(productNumber).child("quantity").setValue(quantity);
+    }
 }

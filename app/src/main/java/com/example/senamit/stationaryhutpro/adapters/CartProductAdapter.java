@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.models.Product;
 import com.example.senamit.stationaryhutpro.models.UserCart;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -50,6 +52,9 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             Log.i(TAG, "inside onBindViewHolder "+cartProductList.get(position).getProductNumber());
             holder.txtProductNumber.setText(cartProductList.get(position).getProductNumber());
             holder.txtProductPrice.setText(cartProductList.get(position).getProductPrice());
+            holder.txtProductName.setText(cartProductList.get(position).getProductName());
+            Picasso.with(context).load(cartProductList.get(position).getImageUrl()).into(holder.imageProduct);
+
         }
 
         else {
@@ -79,35 +84,51 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         TextView txtProductName;
         TextView txtProductNumber;
         TextView txtProductPrice;
+        EditText txtProductQA;
         Button btnRemove;
         Button btnSaveForLater;
+        Button btnAddQuantity;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageProduct = itemView.findViewById(R.id.imageProduct);
             txtProductName = itemView.findViewById(R.id.txtProductName);
             txtProductNumber = itemView.findViewById(R.id.txtProductNumber);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
+            txtProductQA = itemView.findViewById(R.id.txtProductQA);
             btnRemove = itemView.findViewById(R.id.btnRemove);
             btnSaveForLater = itemView.findViewById(R.id.btnSaveForLater);
+            btnAddQuantity = itemView.findViewById(R.id.btnQuantity);
             btnRemove.setOnClickListener(this);
+            btnAddQuantity.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
+            int position;
+            String productNumber;
             switch (view.getId()){
                 case R.id.btnRemove:
                     Log.i(TAG, "inside button click ");
-                    int position = getAdapterPosition();
-                    String productNumber = cartProductList.get(position).getProductNumber();
+                     position = getAdapterPosition();
+                     productNumber = cartProductList.get(position).getProductNumber();
                     btnClickinterface.funRemoveBtnClick(productNumber, position);
                     break;
+                case R.id.btnQuantity:
+                    Log.i(TAG, "inside the quantity button block");
+                    position = getAdapterPosition();
+                    productNumber = cartProductList.get(position).getProductNumber();
+                  int quantity = Integer.parseInt(txtProductQA.getText().toString());
+                  btnClickinterface.funAddProductQuantity(productNumber, quantity);
                 default:
                     Log.i(TAG, "select any other option");
             }
         }
     }
+
+
     public interface ButtonClickInterface{
         void funRemoveBtnClick(String productNumber, int position);
+        void funAddProductQuantity(String productNumber, int quantity);
     }
 
 }
