@@ -21,9 +21,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -51,6 +54,7 @@ public class NewOrders extends Fragment {
     private Address address;
     private List<UserCart> orderedProduct;
     private List<String> keyList;
+    String orderNumberPartOne;
 
     private DatabaseReference mDatabase;
     String userId;
@@ -84,6 +88,7 @@ public class NewOrders extends Fragment {
 
        address= mAddressViewModel.getAddress().getValue();
        orderedProduct = mProductCardViewModel.getOrderedProduct().getValue();
+         orderNumberPartOne = new SimpleDateFormat("yyMMddHHmm", Locale.getDefault()).format(new Date());
 
          writeNewPost(orderedProduct);
 
@@ -92,24 +97,6 @@ public class NewOrders extends Fragment {
         mAdapter = new ProductOrderedAdapter(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
-//        mOrderedProductViewModel.getOrderedProduct(userId).observe(this, new Observer<List<UserCart>>() {
-//            @Override
-//            public void onChanged(List<UserCart> orderList) {
-////                List<UserCart> uniqueProduct;
-//                if (orderList.size()>0){
-//                    Log.i(TAG, "the size of orderlist in java class is "+orderList.size());
-//
-//                    mAdapter.setOrderedProduct(orderList);
-//
-//
-//                }
-//                else{
-//                    Log.i(TAG, "userCarts is empty");
-//                }
-//
-//            }
-//        });
 
 
     }
@@ -127,9 +114,15 @@ public class NewOrders extends Fragment {
             final int total = i+1;
             UserCart userCart = orderedProduct.get(i);
             userCart.setOrderStatus("CONFIRMED");
+            String productNumber = userCart.getProductNumber();
+            String orderNumber = orderNumberPartOne + productNumber.substring(1,4)+total;
+            userCart.setOrderNumber(orderNumber);
             final String keyOrder = FirebaseDatabase.getInstance().getReference("/users/"+userId+"/order").push().getKey();
             userCart.setCartProductKey(keyOrder);
-            String productNumber = userCart.getProductNumber();
+
+            userCart.setDate( new SimpleDateFormat("yy-MM-dd HH:mm", Locale.getDefault()).format(new Date()));
+
+
             productNumberList.add(keyOrder);
             Map<String, Object> productValues = userCart.toMapFinalOrderEntry();
             Map<String, Object> childUpdate = new HashMap<>();

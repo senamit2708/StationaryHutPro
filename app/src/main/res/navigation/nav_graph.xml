@@ -25,8 +25,8 @@
     <fragment
         android:id="@+id/cartProduct"
         android:name="com.example.senamit.stationaryhutpro.fragments.CartProduct"
-        android:label="activity_cart_product"
-        tools:layout="@layout/activity_cart_product" >
+        android:label="Cart"
+        tools:layout="@layout/activity_cart_product">
         <action
             android:id="@+id/action_cartProduct_to_orderDelivery"
             app:clearTask="false"
@@ -40,13 +40,13 @@
     <fragment
         android:id="@+id/userAddressEntry"
         android:name="com.example.senamit.stationaryhutpro.fragments.UserAddressEntry"
-        android:label="activity_user_newaddress_entry"
-        tools:layout="@layout/activity_user_newaddress_entry" ></fragment>
+        android:label="Edit Address"
+        tools:layout="@layout/activity_user_newaddress_entry"></fragment>
     <fragment
         android:id="@+id/userAddressView"
         android:name="com.example.senamit.stationaryhutpro.fragments.UserAddressView"
-        android:label="activity_user_address_view"
-        tools:layout="@layout/activity_user_address_view" >
+        android:label="Address"
+        tools:layout="@layout/activity_user_address_view">
         <action
             android:id="@+id/action_userAddressView_to_userAddressEntry"
             app:destination="@id/userAddressEntry" />
@@ -57,8 +57,8 @@
     <fragment
         android:id="@+id/paymentSelection"
         android:name="com.example.senamit.stationaryhutpro.fragments.PaymentSelection"
-        android:label="activity_payment_selection"
-        tools:layout="@layout/activity_payment_selection" >
+        android:label="Payment"
+        tools:layout="@layout/activity_payment_selection">
         <action
             android:id="@+id/action_paymentSelection_to_orderDetails"
             app:destination="@id/orderDetails"
@@ -67,12 +67,12 @@
     <fragment
         android:id="@+id/orderDetails"
         android:name="com.example.senamit.stationaryhutpro.fragments.NewOrders"
-        android:label="activity_order_details"
+        android:label="New Orders"
         tools:layout="@layout/activity_new_order_details" />
     <fragment
         android:id="@+id/userOrders"
         android:name="com.example.senamit.stationaryhutpro.fragments.UserOrders"
-        android:label="activity_all_orders"
+        android:label="Orders"
         tools:layout="@layout/activity_all_orders" />
     <fragment
         android:id="@+id/orderDelivery"

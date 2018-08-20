@@ -42,11 +42,18 @@ public class UserAllOrdersAdapter extends RecyclerView.Adapter<UserAllOrdersAdap
         if (orderList!=null){
             holder.txtProductNumber.setText(orderList.get(position).getProductNumber());
             holder.txtProductPrice.setText(orderList.get(position).getProductPrice());
-            holder.txtProductName.setText(orderList.get(position).getProductNumber());
+            holder.txtProductName.setText(orderList.get(position).getProductName());
             holder.txtProductQuantity.setText(Integer.toString(orderList.get(position).getQuantity()));
             holder.txtProductOrderStatus.setText(orderList.get(position).getOrderStatus());
             holder.txtProductOrderedDate.setText(orderList.get(position).getDate());
+            holder.txtOrderNumber.setText(orderList.get(position).getOrderNumber());
             Picasso.with(context).load(orderList.get(position).getImageUrl()).into(holder.imageProduct);
+            int quantity = orderList.get(position).getQuantity();
+            int price = Integer.parseInt(orderList.get(position).getProductPrice());
+            int totalPrice = (quantity * price);
+            Log.i(TAG,"the total price is "+totalPrice);
+            holder.txtTotalQuantity.setText("Total price of ("+quantity+" items)");
+            holder.txtTotalPrice.setText(Integer.toString(totalPrice));
         }
     }
 
@@ -80,6 +87,9 @@ public class UserAllOrdersAdapter extends RecyclerView.Adapter<UserAllOrdersAdap
         TextView txtProductOrderStatus;
         TextView txtProductOrderedDate;
         ImageView imageProduct;
+        TextView txtTotalPrice;
+        TextView txtTotalQuantity;
+        TextView txtOrderNumber;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtProductName = itemView.findViewById(R.id.txtProductName);
@@ -89,6 +99,9 @@ public class UserAllOrdersAdapter extends RecyclerView.Adapter<UserAllOrdersAdap
             txtProductOrderStatus = itemView.findViewById(R.id.txtOrderedProductStatus);
             txtProductOrderedDate = itemView.findViewById(R.id.txtProductOrderDate);
             imageProduct = itemView.findViewById(R.id.imageProduct);
+            txtTotalPrice = itemView.findViewById(R.id.txtTotalPrice);
+            txtTotalQuantity = itemView.findViewById(R.id.txtTotalQuantity);
+            txtOrderNumber = itemView.findViewById(R.id.txtOrderNumber);
         }
     }
 }

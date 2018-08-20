@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -84,6 +85,8 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
         TextView txtState;
         TextView txtPincode;
         RadioButton btnSelected;
+        Button btnEdit;
+        Button btnDelete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtFullName = itemView.findViewById(R.id.txtFullName);
@@ -94,37 +97,77 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
             txtState = itemView.findViewById(R.id.txtState);
             txtPincode = itemView.findViewById(R.id.txtPincode);
             btnSelected = itemView.findViewById(R.id.btnSelected);
+            btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnDelete= itemView.findViewById(R.id.btnDelete);
             btnSelected.setOnClickListener(this);
+//            btnSelected.setEnabled(false);
             itemView.setOnClickListener(this);
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    lastSelectedPosition = getAdapterPosition();
+////            notifyDataSetChanged();
+//                    Log.i(TAG, "the selected item is "+lastSelectedPosition);
+//                    Address address = addressList.get(lastSelectedPosition);
+//                    mInterface.funAddressSelected(address, lastSelectedPosition);
+//                }
+//            });
+            btnDelete.setOnClickListener(this);
+            btnEdit.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
+            String key;
+
+            Address address;
+            if (view==itemView){
+                selectaddress();
+
+            }
+            switch (view.getId()){
+
+                case R.id.btnSelected:
+                    selectaddress();
+//                    lastSelectedPosition = getAdapterPosition();
+//            notifyDataSetChanged();
+//            Log.i(TAG, "the selected item is "+lastSelectedPosition);
+//             address = addressList.get(lastSelectedPosition);
+//            mInterface.funAddressSelected(address, lastSelectedPosition);
+                    break;
+                case R.id.btnEdit:
+                  int position = getAdapterPosition();
+                key  = addressList.get(position).getFirebaseKey();
+                    address = addressList.get(position);
+                  mInterface.funEditAddress(address, key);
+                  break;
+                case R.id.btnDelete:
+                    position = getAdapterPosition();
+                    Log.i(TAG, "delete button is clicked");
+                    address = addressList.get(position);
+//                    key = addressList.get(position).getFirebaseKey();
+
+                    mInterface.funDeleteAddress(address);
+                    break;
+                default:
+                    Log.i(TAG, "select any other option");
+
+            }
+        }
+
+        private void selectaddress() {
             lastSelectedPosition = getAdapterPosition();
             notifyDataSetChanged();
             Log.i(TAG, "the selected item is "+lastSelectedPosition);
-            Address address = addressList.get(lastSelectedPosition);
+          Address address = addressList.get(lastSelectedPosition);
             mInterface.funAddressSelected(address, lastSelectedPosition);
         }
 
-
-//        @Override
-//        public void onClick(View view) {
-//            if (view == btnSelected){
-//                lastSelectedPosition = getAdapterPosition();
-//
-//                notifyDataSetChanged();
-//                Log.i(TAG, "the selected item is "+lastSelectedPosition);
-//            }
-//            if (view==itemView){
-//                int index = getAdapterPosition();
-//                Log.i(TAG, "view is clicked"+index);
-//            }
-//
-//        }
     }
 
     public interface AddressButtonClickInterface{
         void funAddressSelected(Address address, int position);
+        void funEditAddress(Address address, String key);
+        void funDeleteAddress(Address address);
     }
 }

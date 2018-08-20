@@ -33,6 +33,8 @@ class StationaryMainPage : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 //        supportActionBar?.run { setDisplayHomeAsUpEnabled(true)
+
+
 //        setHomeButtonEnabled(true)}
 
         val host: NavHostFragment =
@@ -45,17 +47,21 @@ class StationaryMainPage : AppCompatActivity() {
         setupNavigationMenu(navController)
 
 
+
         Toast.makeText(this, "sorry", Toast.LENGTH_SHORT).show();
+
 
     }
 
     private fun setupActionBar(navController: NavController) {
         drawerLayout = findViewById(R.id.drawer_layout)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+
     }
     private fun setupNavigationMenu(navController: NavController) {
         findViewById<NavigationView>(R.id.nav_view)?.let { navigationView ->
             NavigationUI.setupWithNavController(navigationView, navController)
+
         }
     }
 
@@ -81,6 +87,7 @@ class StationaryMainPage : AppCompatActivity() {
                 || super.onOptionsItemSelected(item)
 
     }
+
 
 
 }

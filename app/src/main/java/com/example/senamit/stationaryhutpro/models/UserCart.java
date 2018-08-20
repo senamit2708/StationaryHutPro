@@ -10,13 +10,15 @@ import java.util.Map;
 public class UserCart {
 
     private String productNumber;
-    private String date="26th Aug 2019";
+    private String date;
     private String productPrice;
     private String productName;
     private String imageUrl;
     private int quantity;
     private String orderStatus;
     private String cartProductKey;
+    private String totalPrice;
+    private String orderNumber;
 
     public UserCart(String productNumber) {
         this.productNumber = productNumber;
@@ -122,6 +124,22 @@ public class UserCart {
         this.cartProductKey = cartProductKey;
     }
 
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
     @Exclude
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
@@ -145,6 +163,7 @@ public class UserCart {
         result.put("orderStatus",orderStatus);
         result.put("quantity", quantity);
         result.put("cartProductKey",cartProductKey);
+        result.put("orderNumber",orderNumber);
         return result;
     }
 

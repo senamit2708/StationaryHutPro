@@ -99,6 +99,7 @@ public class UserAddressView extends Fragment implements UserAddressAdapter.Addr
         btnAddNewAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mViewModel.setAddressForEdit(null, null);
                 Navigation.findNavController(view).navigate(R.id.action_userAddressView_to_userAddressEntry);
 
             }
@@ -114,7 +115,21 @@ public class UserAddressView extends Fragment implements UserAddressAdapter.Addr
         Log.i(TAG, "the adress mob no is "+address.getMobileNumber());
     }
 
+    @Override
+    public void funEditAddress(Address address, String key) {
+        Log.i(TAG, "inside  funEditAddress "+key);
+        mViewModel.setAddressForEdit(address, key);
+//        Navigation.findNavController(view).navigate(R.id.action_userAddressView_to_userAddressEntry);
+        Navigation.findNavController(getActivity(), R.id.btnAddNewAddress).navigate(R.id.action_userAddressView_to_userAddressEntry);
 
+
+    }
+
+    @Override
+    public void funDeleteAddress(Address address) {
+        Log.i(TAG, "inside funDeleteAddress ");
+        mViewModel.deleteAddress(address, currentUser.getUid());
+    }
 
 
 }

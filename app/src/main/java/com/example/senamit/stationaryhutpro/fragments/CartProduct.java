@@ -103,8 +103,9 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
     }
 
     @Override
-    public void funAddProductQuantity(String productNumber, int quantity) {
+    public void funAddProductQuantity(String productNumber, int quantity, int price) {
         Log.i(TAG, "inside funaddproductqunaity "+ productNumber +"quantity"+quantity);
-        mViewModel.addProductQuantityToCart(productNumber, quantity);
+        mViewModel.addProductQuantityToCart(productNumber, quantity, price);
+
     }
 }

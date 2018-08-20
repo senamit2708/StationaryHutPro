@@ -25,10 +25,13 @@ public class UserAddressViewModel extends AndroidViewModel {
 
     private static DatabaseReference USER_ADDRESS_REF;
     private static DatabaseReference DELIVERY_ADDRESS_REF;
+    private static DatabaseReference mReference;
     private MediatorLiveData<List<Address>> addressList;
     private MediatorLiveData<Address> deliveryAddress;
     private FirebaseQueryLiveData liveData;
     private FirebaseQueryLiveData deliveryAddressLiveData;
+    private Address editAddress;
+    private String firebaseKey;
 
 //    private Address address;
     private MutableLiveData<Address> addressMutableLiveData= new MutableLiveData<Address>();
@@ -102,5 +105,27 @@ public class UserAddressViewModel extends AndroidViewModel {
                 deliveryAddress.setValue(address);
             }
         });
+    }
+
+
+
+    public void deleteAddress(Address address, String uid) {
+        mReference = FirebaseDatabase.getInstance().getReference();
+        String key = address.getFirebaseKey();
+        Log.i(TAG, "inside delete address viewmodel");
+        mReference.child("users").child(uid).child("address").child(key).removeValue();
+    }
+
+    public void setAddressForEdit(Address address, String key) {
+        editAddress = address;
+        firebaseKey = key;
+    }
+
+    public Address getSelectedAddressForEdit() {
+        return editAddress;
+    }
+
+    public String getSelectedAddressFirebaseKey() {
+        return firebaseKey;
     }
 }

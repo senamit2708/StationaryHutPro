@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.models.Address;
+import com.example.senamit.stationaryhutpro.viewModels.UserAddressViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +31,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 public class UserAddressEntry extends Fragment {
@@ -51,6 +53,19 @@ public class UserAddressEntry extends Fragment {
     private EditText txtState;
     private Button btnSubmit;
 
+    private UserAddressViewModel mViewModel;
+    private Address editableAddress;
+    private String firebaseKey;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = ViewModelProviders.of(getActivity()).get(UserAddressViewModel.class);
+        editableAddress = mViewModel.getSelectedAddressForEdit();
+
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,6 +75,8 @@ public class UserAddressEntry extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return view;
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -86,9 +103,21 @@ public class UserAddressEntry extends Fragment {
             }
         });
 
+        if (editableAddress != null){
+            firebaseKey = mViewModel.getSelectedAddressFirebaseKey();
+            txtFullName.setText(editableAddress.getFullName());
+            txtMobileNumber.setText(editableAddress.getMobileNumber());
+            txtPincode.setText(editableAddress.getPincode());
+            txtAddressPartOne.setText(editableAddress.getAddressPartOne());
+            txtAddressPartTwo.setText(editableAddress.getAddressPartTwo());
+            txtCity.setText(editableAddress.getCity());
+            txtState.setText(editableAddress.getState());
+        }
+
     }
 
     private void firebaseAddressUpload(final View view) {
+        String key = null;
 
         String fullName = txtFullName.getText().toString();
          String mobileNumber= txtMobileNumber.getText().toString();
@@ -101,7 +130,11 @@ public class UserAddressEntry extends Fragment {
          String date = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(new Date());
 
         int status=1;
-        String key = mDatabase.child("users").child(currentUser.getUid()).child("address").push().getKey();
+        if (TextUtils.isEmpty(firebaseKey)){
+             key = mDatabase.child("users").child(currentUser.getUid()).child("address").push().getKey();
+        }else {
+            key = firebaseKey;
+        }
 
         Address address = new Address(fullName, mobileNumber, pincode, addressPartOne, addressPartTwo,
                 null, city, state,status, date, key);

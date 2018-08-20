@@ -53,7 +53,14 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             holder.txtProductNumber.setText(cartProductList.get(position).getProductNumber());
             holder.txtProductPrice.setText(cartProductList.get(position).getProductPrice());
             holder.txtProductName.setText(cartProductList.get(position).getProductName());
+            holder.txtProductQA.setText(Integer.toString(cartProductList.get(position).getQuantity()));
             Picasso.with(context).load(cartProductList.get(position).getImageUrl()).into(holder.imageProduct);
+            int quantity = cartProductList.get(position).getQuantity();
+            int price = Integer.parseInt(cartProductList.get(position).getProductPrice());
+            int totalPrice = (quantity * price);
+            Log.i(TAG,"the total price is "+totalPrice);
+            holder.txtTotalQuantity.setText("Total price of ("+quantity+" items)");
+            holder.txtTotalPrice.setText(Integer.toString(totalPrice));
 
         }
 
@@ -84,6 +91,8 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         TextView txtProductName;
         TextView txtProductNumber;
         TextView txtProductPrice;
+        TextView txtTotalPrice;
+        TextView txtTotalQuantity;
         EditText txtProductQA;
         Button btnRemove;
         Button btnSaveForLater;
@@ -95,6 +104,8 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             txtProductNumber = itemView.findViewById(R.id.txtProductNumber);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
             txtProductQA = itemView.findViewById(R.id.txtProductQA);
+            txtTotalPrice = itemView.findViewById(R.id.txtTotalPrice);
+            txtTotalQuantity = itemView.findViewById(R.id.txtTotalQuantity);
             btnRemove = itemView.findViewById(R.id.btnRemove);
             btnSaveForLater = itemView.findViewById(R.id.btnSaveForLater);
             btnAddQuantity = itemView.findViewById(R.id.btnQuantity);
@@ -118,7 +129,8 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
                     position = getAdapterPosition();
                     productNumber = cartProductList.get(position).getProductNumber();
                   int quantity = Integer.parseInt(txtProductQA.getText().toString());
-                  btnClickinterface.funAddProductQuantity(productNumber, quantity);
+                  int price = Integer.parseInt(txtProductPrice.getText().toString());
+                  btnClickinterface.funAddProductQuantity(productNumber, quantity, price);
                 default:
                     Log.i(TAG, "select any other option");
             }
@@ -128,7 +140,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
     public interface ButtonClickInterface{
         void funRemoveBtnClick(String productNumber, int position);
-        void funAddProductQuantity(String productNumber, int quantity);
+        void funAddProductQuantity(String productNumber, int quantity, int price);
     }
 
 }

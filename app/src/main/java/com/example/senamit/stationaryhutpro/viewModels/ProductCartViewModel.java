@@ -131,9 +131,12 @@ public class ProductCartViewModel extends AndroidViewModel {
        return orderedProductList;
     }
 
-    public void addProductQuantityToCart(String productNumber, int quantity) {
+    public void addProductQuantityToCart(String productNumber, int quantity, int price) {
         Log.i(TAG, "in view model the addquantity "+productNumber +"  quantity "+quantity);
+        int totalPrice = quantity* price;
         mdataRef = FirebaseDatabase.getInstance().getReference();
         mdataRef.child("users").child(mUserId).child("cart").child(productNumber).child("quantity").setValue(quantity);
+//        mdataRef.child("users").child(mUserId).child("cart").child(productNumber).child("totalPice").setValue(totalPrice);
+
     }
 }

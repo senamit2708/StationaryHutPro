@@ -47,6 +47,12 @@ public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProduct
             holder.txtProductName.setText(cartProductList.get(position).getProductName());
             holder.txtProductQuantity.setText(Integer.toString(cartProductList.get(position).getQuantity()));
             Picasso.with(context).load(cartProductList.get(position).getImageUrl()).into(holder.imageProduct);
+            int quantity = cartProductList.get(position).getQuantity();
+            int price = Integer.parseInt(cartProductList.get(position).getProductPrice());
+            int totalPrice = (quantity * price);
+            Log.i(TAG,"the total price is "+totalPrice);
+            holder.txtTotalQuantity.setText("Total price of ("+quantity+" items)");
+            holder.txtTotalPrice.setText(Integer.toString(totalPrice));
 
         }
     }
@@ -72,6 +78,8 @@ public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProduct
         TextView txtProductNumber;
         TextView txtProductPrice;
         TextView txtProductQuantity;
+        TextView txtTotalPrice;
+        TextView txtTotalQuantity;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageProduct = itemView.findViewById(R.id.imageProduct);
@@ -79,6 +87,8 @@ public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProduct
             txtProductNumber = itemView.findViewById(R.id.txtProductNumber);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
             txtProductQuantity = itemView.findViewById(R.id.txtProductQuantity);
+            txtTotalPrice = itemView.findViewById(R.id.txtTotalPrice);
+            txtTotalQuantity = itemView.findViewById(R.id.txtTotalQuantity);
         }
     }
 }
