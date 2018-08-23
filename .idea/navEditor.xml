@@ -67,6 +67,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="orderedProductDescription">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-508" />
+                            <option name="y" value="-822" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="paymentSelection">
                     <value>
                       <LayoutPositions>
@@ -188,6 +200,15 @@
                             <option name="x" value="-750" />
                             <option name="y" value="-680" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_userOrders_to_orderedProductDescription">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

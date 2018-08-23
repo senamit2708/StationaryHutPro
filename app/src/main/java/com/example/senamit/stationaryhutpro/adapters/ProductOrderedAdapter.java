@@ -39,13 +39,20 @@ public class ProductOrderedAdapter extends RecyclerView.Adapter<ProductOrderedAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.i(TAG, "inside onbind view holder "+mOrderList.get(position).getProductNumber());
+        Picasso.with(context).load(mOrderList.get(position).getImageUrl()).into(holder.imageProduct);
         holder.txtProductName.setText(mOrderList.get(position).getProductNumber());
         holder.txtProductPrice.setText(mOrderList.get(position).getProductPrice());
         holder.txtProductNumber.setText(mOrderList.get(position).getProductNumber());
         holder.txtProductQuantity.setText(Integer.toString(mOrderList.get(position).getQuantity()));
         holder.txtProductOrderStatus.setText(mOrderList.get(position).getOrderStatus());
+        holder.txtOrderNumber.setText(mOrderList.get(position).getOrderNumber());
         holder.txtProductOrderedDate.setText(mOrderList.get(position).getDate());
-        Picasso.with(context).load(mOrderList.get(position).getImageUrl()).into(holder.imageProduct);
+        int quantity = mOrderList.get(position).getQuantity();
+        int price = Integer.parseInt(mOrderList.get(position).getProductPrice());
+        int totalPrice = (quantity * price);
+        Log.i(TAG,"the total price is "+totalPrice);
+        holder.txtTotalQuantity.setText("Total price of ("+quantity+" items)");
+        holder.txtTotalPrice.setText(Integer.toString(totalPrice));
 
     }
 
@@ -77,6 +84,9 @@ public class ProductOrderedAdapter extends RecyclerView.Adapter<ProductOrderedAd
         TextView txtProductOrderStatus;
         TextView txtProductOrderedDate;
         ImageView imageProduct;
+        TextView txtTotalPrice;
+        TextView txtTotalQuantity;
+        TextView txtOrderNumber;
         
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +97,9 @@ public class ProductOrderedAdapter extends RecyclerView.Adapter<ProductOrderedAd
             txtProductOrderStatus = itemView.findViewById(R.id.txtOrderedProductStatus);
             txtProductOrderedDate = itemView.findViewById(R.id.txtProductOrderDate);
             imageProduct = itemView.findViewById(R.id.imageProduct);
+            txtTotalPrice = itemView.findViewById(R.id.txtTotalPrice);
+            txtTotalQuantity = itemView.findViewById(R.id.txtTotalQuantity);
+            txtOrderNumber = itemView.findViewById(R.id.txtOrderNumber);
 
         }
     }

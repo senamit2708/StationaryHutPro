@@ -15,4 +15,7 @@
     <color name="colorAccent">#607d8b</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="textColorSecondary">#89000000</color>
+
+    <color name="colorBackground">#E6E6E6</color>
+    <color name="colorCardView">#F5F5F5</color>
 </resources>

@@ -5,9 +5,13 @@ package com.example.senamit.stationaryhutpro.activities
 //import android.support.v7.widget.Toolbar
 
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +22,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.senamit.stationaryhutpro.R
 import com.google.android.material.navigation.NavigationView
+
+
+
+
 
 
 class StationaryMainPage : AppCompatActivity() {
@@ -70,6 +78,7 @@ class StationaryMainPage : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(drawerLayout,
                 Navigation.findNavController(this, R.id.my_nav_host_fragment))
+
         onBackPressed()
         return true
 
@@ -86,6 +95,22 @@ class StationaryMainPage : AppCompatActivity() {
                 Navigation.findNavController(this, R.id.my_nav_host_fragment))
                 || super.onOptionsItemSelected(item)
 
+    }
+
+    fun hideSoftKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+    }
+
+    fun hideKeyboard(activity: Activity) {
+        val inputManager = activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        // check if no view has focus:
+        val currentFocusedView = activity.currentFocus
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(currentFocusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        }
     }
 
 

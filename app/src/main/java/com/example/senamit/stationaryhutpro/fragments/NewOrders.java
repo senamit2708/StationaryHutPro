@@ -117,10 +117,11 @@ public class NewOrders extends Fragment {
             String productNumber = userCart.getProductNumber();
             String orderNumber = orderNumberPartOne + productNumber.substring(1,4)+total;
             userCart.setOrderNumber(orderNumber);
+            userCart.setPaymentMode("Cash on delivery");
             final String keyOrder = FirebaseDatabase.getInstance().getReference("/users/"+userId+"/order").push().getKey();
             userCart.setCartProductKey(keyOrder);
 
-            userCart.setDate( new SimpleDateFormat("yy-MM-dd HH:mm", Locale.getDefault()).format(new Date()));
+            userCart.setDate( new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
 
 
             productNumberList.add(keyOrder);

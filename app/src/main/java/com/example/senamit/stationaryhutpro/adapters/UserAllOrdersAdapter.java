@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.senamit.stationaryhutpro.R;
+import com.example.senamit.stationaryhutpro.interfaces.OrderedProductDescInterface;
 import com.example.senamit.stationaryhutpro.models.UserCart;
 import com.squareup.picasso.Picasso;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class UserAllOrdersAdapter extends RecyclerView.Adapter<UserAllOrdersAdapter.ViewHolder> {
@@ -23,9 +25,15 @@ public class UserAllOrdersAdapter extends RecyclerView.Adapter<UserAllOrdersAdap
     private static final String TAG = UserAllOrdersAdapter.class.getSimpleName();
     private Context context;
     private List<UserCart> orderList = new ArrayList<>();
+    private OrderedProductDescInterface orderedProductDescInterface;
 
     public UserAllOrdersAdapter(Context context) {
         this.context = context;
+    }
+
+    public UserAllOrdersAdapter(Context context, OrderedProductDescInterface orderedProductDescInterface) {
+        this.context = context;
+        this.orderedProductDescInterface = orderedProductDescInterface;
     }
 
     @NonNull
@@ -46,8 +54,9 @@ public class UserAllOrdersAdapter extends RecyclerView.Adapter<UserAllOrdersAdap
             holder.txtProductQuantity.setText(Integer.toString(orderList.get(position).getQuantity()));
             holder.txtProductOrderStatus.setText(orderList.get(position).getOrderStatus());
             holder.txtProductOrderedDate.setText(orderList.get(position).getDate());
+            Log.i(TAG, "the date is "+orderList.get(position).getDate());
             holder.txtOrderNumber.setText(orderList.get(position).getOrderNumber());
-            Picasso.with(context).load(orderList.get(position).getImageUrl()).into(holder.imageProduct);
+            Picasso.with(context).load(orderList.get(position).getImageUrl()).fit().into(holder.imageProduct);
             int quantity = orderList.get(position).getQuantity();
             int price = Integer.parseInt(orderList.get(position).getProductPrice());
             int totalPrice = (quantity * price);
@@ -102,6 +111,16 @@ public class UserAllOrdersAdapter extends RecyclerView.Adapter<UserAllOrdersAdap
             txtTotalPrice = itemView.findViewById(R.id.txtTotalPrice);
             txtTotalQuantity = itemView.findViewById(R.id.txtTotalQuantity);
             txtOrderNumber = itemView.findViewById(R.id.txtOrderNumber);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    String cartProductFirebaseKey = orderList.get(position).getCartProductKey();
+                    orderedProductDescInterface.funOrderdProductSelection(cartProductFirebaseKey);
+                    Navigation.findNavController(view).navigate(R.id.action_userOrders_to_orderedProductDescription);
+                }
+            });
         }
     }
 }

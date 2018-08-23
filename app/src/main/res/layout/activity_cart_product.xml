@@ -4,16 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    android:background="@color/colorBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,6 +20,7 @@
         android:id="@+id/recycler_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
         />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -58,6 +55,8 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_weight="2"
         android:text="Proceed To Pay"
+           android:elevation="8dp"
+           android:backgroundTint="@android:color/holo_orange_dark"
         android:visibility="visible"/>
 
         </LinearLayout>

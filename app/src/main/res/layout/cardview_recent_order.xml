@@ -6,15 +6,20 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    android:layout_marginBottom="30dp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorCardView"
+        style="@style/Widget.MaterialComponents.CardView"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="350dp">
 
             <ImageView
                 android:id="@+id/imageProduct"
@@ -102,7 +107,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageProduct" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/txtOrderNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -142,6 +147,46 @@
                 android:text="status"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
                 app:layout_constraintStart_toEndOf="@+id/textView7" />
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/txtTotalQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:hint="total price is"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+            <TextView
+                android:id="@+id/txtTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:hint="0"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txtTotalQuantity"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/Rs"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txtTotalPrice"
+                app:layout_constraintEnd_toStartOf="@+id/txtTotalPrice" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

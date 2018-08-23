@@ -5,10 +5,15 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="30dp"
     tools:layout_editor_absoluteY="25dp">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.CardView"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/colorCardView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -16,8 +21,8 @@
 
             <ImageView
                 android:id="@+id/imageProduct"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="16dp"

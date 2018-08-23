@@ -73,7 +73,11 @@
         android:id="@+id/userOrders"
         android:name="com.example.senamit.stationaryhutpro.fragments.UserOrders"
         android:label="Orders"
-        tools:layout="@layout/activity_all_orders" />
+        tools:layout="@layout/activity_all_orders" >
+        <action
+            android:id="@+id/action_userOrders_to_orderedProductDescription"
+            app:destination="@id/orderedProductDescription" />
+    </fragment>
     <fragment
         android:id="@+id/orderDelivery"
         android:name="com.example.senamit.stationaryhutpro.fragments.OrderDelivery"
@@ -87,4 +91,9 @@
             app:destination="@id/userAddressView"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/orderedProductDescription"
+        android:name="com.example.senamit.stationaryhutpro.fragments.OrderedProductDescription"
+        android:label="activity_ordered_product_description"
+        tools:layout="@layout/activity_ordered_product_description" />
 </navigation>

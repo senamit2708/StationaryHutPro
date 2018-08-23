@@ -3,6 +3,7 @@ package com.example.senamit.stationaryhutpro.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.senamit.stationaryhutpro.R;
+import com.example.senamit.stationaryhutpro.activities.StationaryMainPage;
 import com.example.senamit.stationaryhutpro.models.Address;
 import com.example.senamit.stationaryhutpro.viewModels.UserAddressViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -66,6 +68,13 @@ public class UserAddressEntry extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, "inside onPause method");
+        
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -99,6 +108,7 @@ public class UserAddressEntry extends Fragment {
                 if (check==0){
                 firebaseAddressUpload(view);
                 }
+                ((StationaryMainPage)getActivity()).hideSoftKeyboard(view);
 
             }
         });

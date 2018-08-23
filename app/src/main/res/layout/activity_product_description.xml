@@ -61,7 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-
+            android:elevation="2dp"
         android:layout_weight="2"
         android:text="Add to Cart"/>
         <com.google.android.material.button.MaterialButton
@@ -70,6 +70,7 @@
         android:layout_height="match_parent"
         style="@style/Widget.MaterialComponents.Button"
         android:backgroundTint="@android:color/holo_orange_dark"
+            android:elevation="8dp"
         android:layout_weight="2"
         android:text="Buy Now"/>
 

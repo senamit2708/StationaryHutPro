@@ -2,16 +2,19 @@ package com.example.senamit.stationaryhutpro.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.adapters.UserAllOrdersAdapter;
+import com.example.senamit.stationaryhutpro.interfaces.OrderedProductDescInterface;
 import com.example.senamit.stationaryhutpro.models.UserCart;
 import com.example.senamit.stationaryhutpro.viewModels.UsersAllOrdersViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -22,7 +25,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class UserOrders extends Fragment {
+public class UserOrders extends Fragment implements OrderedProductDescInterface {
 
     private static final String TAG = UserOrders.class.getSimpleName();
     private Context context;
@@ -56,7 +59,7 @@ public class UserOrders extends Fragment {
 
         mRecyclerView = view.findViewById(R.id.recycler_order);
         mLayoutManager = new LinearLayoutManager(context);
-        mAdapter = new UserAllOrdersAdapter(context);
+        mAdapter = new UserAllOrdersAdapter(context, this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -64,6 +67,8 @@ public class UserOrders extends Fragment {
             @Override
             public void onChanged(List<UserCart> userCarts) {
                 if (userCarts!= null){
+//                    List<UserCart> userCartsReverse = new ArrayList<>();
+                    Collections.reverse(userCarts);
                     mAdapter.setOrderList(userCarts);
                 }
 
@@ -71,5 +76,11 @@ public class UserOrders extends Fragment {
         });
 
 
+    }
+
+    @Override
+    public void funOrderdProductSelection(String cartProductKey) {
+        Log.i(TAG, "the cart product key is  "+cartProductKey);
+        mViewModel.setSelectedCartProductForDesc(cartProductKey);
     }
 }

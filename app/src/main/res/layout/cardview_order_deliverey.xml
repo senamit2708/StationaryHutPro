@@ -11,6 +11,9 @@
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/colorCardView"
         android:minHeight="200dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginBottom="70dp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

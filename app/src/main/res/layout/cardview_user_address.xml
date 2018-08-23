@@ -9,7 +9,11 @@
     android:weightSum="5">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.CardView"
+        app:cardBackgroundColor="@color/colorCardView"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

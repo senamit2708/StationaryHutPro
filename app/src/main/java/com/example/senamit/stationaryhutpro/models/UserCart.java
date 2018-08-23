@@ -19,6 +19,7 @@ public class UserCart {
     private String cartProductKey;
     private String totalPrice;
     private String orderNumber;
+    private String paymentMode;
 
     public UserCart(String productNumber) {
         this.productNumber = productNumber;
@@ -46,7 +47,7 @@ public class UserCart {
         this.quantity = quantity;
     }
 
-    public UserCart(String productNumber, String date, String productPrice, String productName, String imageUrl, int quantity, String orderStatus, String cartProductKey) {
+    public UserCart(String productNumber, String date, String productPrice, String productName, String imageUrl, int quantity, String orderStatus, String cartProductKey, String paymentMode) {
         this.productNumber = productNumber;
         this.date = date;
         this.productPrice = productPrice;
@@ -55,6 +56,8 @@ public class UserCart {
         this.quantity = quantity;
         this.orderStatus = orderStatus;
         this.cartProductKey = cartProductKey;
+        this.paymentMode = paymentMode;
+
     }
 
     public UserCart() {
@@ -140,6 +143,14 @@ public class UserCart {
         this.orderNumber = orderNumber;
     }
 
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
     @Exclude
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
@@ -159,11 +170,12 @@ public class UserCart {
         result.put("productPrice", productPrice);
         result.put("productName", productName);
         result.put("imageUrl",imageUrl);
-        result.put("orderDate",date);
+        result.put("date",date);
         result.put("orderStatus",orderStatus);
         result.put("quantity", quantity);
         result.put("cartProductKey",cartProductKey);
         result.put("orderNumber",orderNumber);
+        result.put("paymentMode",paymentMode);
         return result;
     }
 
