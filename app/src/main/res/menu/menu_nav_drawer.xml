@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/productForSaleNotebook"
+        android:title="Notebook"/>
+    <item
+        android:id="@+id/productForSalePen"
+        android:title="Pen and Pencil"/>
+
+
     <item
         android:id="@+id/userNewAddressEntry"
-        android:icon="@drawable/ic_favorite_black"
         android:title="Address" />
+
     <item
         android:id="@+id/testFragmentOne"
-        android:icon="@drawable/ic_favorite_black"
         android:title="FirstTest" />
+
     <item
         android:id="@+id/userOrders"
-        android:icon="@drawable/ic_favorite_black"
         android:title="Orders" />
+    <item
+        android:id="@+id/userAccount"
+        android:title="Account"/>
 
 </menu>

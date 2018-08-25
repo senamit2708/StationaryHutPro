@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.adapters.UserAddressAdapter;
@@ -89,9 +90,15 @@ public class UserAddressView extends Fragment implements UserAddressAdapter.Addr
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (address!=null){
+
+
                 mViewModel.setPaymentAddress(address);
                 Navigation.findNavController(view).navigate(R.id.action_userAddressView_to_paymentSelection);
-
+                }
+                else {
+                    Toast.makeText(context, "please select address", Toast.LENGTH_SHORT).show();;
+                }
 //                Navigation.findNavController(view).popBackStack(R.id.userAddressView, true); --this line of code is popbackstack
             }
         });

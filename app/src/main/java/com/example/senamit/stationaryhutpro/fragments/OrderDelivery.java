@@ -96,7 +96,10 @@ public class OrderDelivery extends Fragment {
         mViewModelUserAddress.getRecentlyUsedAddress(mUserId).observe(this, new Observer<Address>() {
             @Override
             public void onChanged(Address address) {
-                Log.i(TAG, "the adress is  "+address.getDate());
+                if (address!= null){
+                    Log.i(TAG, "the adress is  "+address.getDate());
+                }
+
             }
         });
 

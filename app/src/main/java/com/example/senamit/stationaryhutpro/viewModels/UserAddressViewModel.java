@@ -100,9 +100,14 @@ public class UserAddressViewModel extends AndroidViewModel {
         deliveryAddress.addSource(deliveryAddressLiveData, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(DataSnapshot dataSnapshot) {
-                Address address = dataSnapshot.getValue(Address.class);
-                Log.i(TAG, "the adress is "+address.getFullName());
-                deliveryAddress.setValue(address);
+                if (dataSnapshot!= null){
+                    Address address = dataSnapshot.getValue(Address.class);
+
+                    deliveryAddress.setValue(address);
+                }else {
+                    deliveryAddress.setValue(null);
+                }
+
             }
         });
     }
