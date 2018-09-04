@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.senamit.stationaryhutpro.R;
@@ -18,30 +17,28 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.ViewHolder> {
+public class UserAccountAddressAdapter extends RecyclerView.Adapter<UserAccountAddressAdapter.ViewHolder> {
 
     private static final String TAG = UserAddressAdapter.class.getSimpleName();
 
     private List<Address> addressList = new ArrayList<>();
     private Context context;
     private int lastSelectedPosition = -1;
-    private AddressButtonClickInterface mInterface;
+    private UserAccountAddressAdapter.AddressButtonClickInterface mInterface;
 
-    public UserAddressAdapter(Context context, AddressButtonClickInterface mInterface) {
+    public UserAccountAddressAdapter(Context context, AddressButtonClickInterface mInterface) {
         this.context = context;
         this.mInterface = mInterface;
     }
 
-    public UserAddressAdapter(Context context) {
-        this.context = context;
-    }
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview_user_address, parent, false);
-        return new ViewHolder(itemView);
+                .inflate(R.layout.cardview_account_user_address, parent, false);
+        return new UserAccountAddressAdapter.ViewHolder(itemView);
     }
 
     @Override
@@ -54,14 +51,8 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
             holder.txtCity.setText(addressList.get(position).getCity());
             holder.txtState.setText(addressList.get(position).getState());
             holder.txtPincode.setText(addressList.get(position).getPincode());
-            holder.btnSelected.setChecked(lastSelectedPosition== position);
-            if (lastSelectedPosition==position){
-                holder.btnEdit.setVisibility(View.VISIBLE);
-            }else {
-                holder.btnEdit.setVisibility(View.INVISIBLE);
-            }
+            
         }
-
     }
 
     @Override
@@ -89,8 +80,8 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
         TextView txtCity;
         TextView txtState;
         TextView txtPincode;
-        RadioButton btnSelected;
         Button btnEdit;
+        Button btnDelete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtFullName = itemView.findViewById(R.id.txtFullName);
@@ -100,10 +91,10 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
             txtCity = itemView.findViewById(R.id.txtCity);
             txtState = itemView.findViewById(R.id.txtState);
             txtPincode = itemView.findViewById(R.id.txtPincode);
-            btnSelected = itemView.findViewById(R.id.btnSelected);
             btnEdit = itemView.findViewById(R.id.btnEdit);
-            btnSelected.setOnClickListener(this);
-            itemView.setOnClickListener(this);
+            btnDelete= itemView.findViewById(R.id.btnDelete);
+
+            btnDelete.setOnClickListener(this);
             btnEdit.setOnClickListener(this);
         }
 
@@ -112,40 +103,30 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
             String key;
 
             Address address;
-            if (view==itemView){
-                selectaddress();
-
-            }
             switch (view.getId()){
-
-                case R.id.btnSelected:
-                    selectaddress();
-                    break;
                 case R.id.btnEdit:
-                  int position = getAdapterPosition();
-                key  = addressList.get(position).getFirebaseKey();
+                    int position = getAdapterPosition();
+                    key  = addressList.get(position).getFirebaseKey();
                     address = addressList.get(position);
-                  mInterface.funEditAddress(address, key);
-                  break;
+                    mInterface.funEditAddress(address, key);
+                    break;
+                case R.id.btnDelete:
+                    position = getAdapterPosition();
+                    Log.i(TAG, "delete button is clicked");
+                    address = addressList.get(position);
+//                    key = addressList.get(position).getFirebaseKey();
+
+                    mInterface.funDeleteAddress(address);
+                    break;
                 default:
                     Log.i(TAG, "select any other option");
 
             }
         }
-
-        private void selectaddress() {
-            lastSelectedPosition = getAdapterPosition();
-            notifyDataSetChanged();
-            Log.i(TAG, "the selected item is "+lastSelectedPosition);
-          Address address = addressList.get(lastSelectedPosition);
-//          btnEdit.setVisibility(View.VISIBLE);
-          mInterface.funAddressSelected(address, lastSelectedPosition);
-        }
-
     }
 
     public interface AddressButtonClickInterface{
-        void funAddressSelected(Address address, int position);
         void funEditAddress(Address address, String key);
+        void funDeleteAddress(Address address);
     }
 }

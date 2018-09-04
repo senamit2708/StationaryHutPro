@@ -5,6 +5,7 @@
         android:id="@+id/cartProduct"
         android:icon="@drawable/ic_shopping_cart_white"
         android:title="Shopping Cart"
+        android:orderInCategory="100"
         android:showAsAction="always" />
 
 </menu>

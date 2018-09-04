@@ -12,7 +12,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -53,10 +52,6 @@ class StationaryMainPage : AppCompatActivity() {
 
         setupActionBar(navController)
         setupNavigationMenu(navController)
-
-
-
-        Toast.makeText(this, "sorry", Toast.LENGTH_SHORT).show();
 
 
     }

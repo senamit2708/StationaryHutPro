@@ -38,6 +38,7 @@ public class ProductCartViewModel extends AndroidViewModel {
     private MutableLiveData<List<UserCart>> orderedProductList = new MutableLiveData<>();
 
     private String mUserId;
+    private Boolean productExist = false;
 
 
 
@@ -139,4 +140,5 @@ public class ProductCartViewModel extends AndroidViewModel {
 //        mdataRef.child("users").child(mUserId).child("cart").child(productNumber).child("totalPice").setValue(totalPrice);
 
     }
+
 }

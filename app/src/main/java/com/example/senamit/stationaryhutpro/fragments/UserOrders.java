@@ -68,7 +68,7 @@ public class UserOrders extends Fragment implements OrderedProductDescInterface 
             public void onChanged(List<UserCart> userCarts) {
                 if (userCarts!= null){
 //                    List<UserCart> userCartsReverse = new ArrayList<>();
-                    Collections.reverse(userCarts);
+//                    Collections.reverse(userCarts);
                     mAdapter.setOrderList(userCarts);
                 }
 

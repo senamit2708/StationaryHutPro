@@ -9,16 +9,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.models.Product;
 import com.example.senamit.stationaryhutpro.models.UserCart;
+import com.example.senamit.stationaryhutpro.viewModels.ProductCartViewModel;
 import com.example.senamit.stationaryhutpro.viewModels.ProductForSaleViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -59,10 +66,13 @@ public class ProductDescription extends Fragment implements View.OnClickListener
     private Button mBtnBuyNow;
 
     private ProductForSaleViewModel mViewModel;
+    private ProductCartViewModel mCartViewModel;
     private DatabaseReference mDatabase;
     private DatabaseReference mUserDatabase;
     private LiveData<DataSnapshot> liveData;
     private FirebaseUser mFirebaseUser;
+
+    private boolean showToast = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +81,10 @@ public class ProductDescription extends Fragment implements View.OnClickListener
         clickedItemIndex = getArguments().getInt(PRODUCT_INDEX);
         Log.i(TAG, "inside oncreate product description "+mProductNumber);
         Log.i(TAG, "inside oncreate product description "+clickedItemIndex);
+
+        mCartViewModel = ViewModelProviders.of(getActivity()).get(ProductCartViewModel.class);
+
+
     }
 
     @Nullable
@@ -130,6 +144,7 @@ public class ProductDescription extends Fragment implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnAddToCart:
+                showToast = true;
                 pushProductToCart();
                 break;
             case R.id.btnBuyNow:
@@ -141,14 +156,49 @@ public class ProductDescription extends Fragment implements View.OnClickListener
         }
     }
     private void pushProductToCart() {
-        UserCart cart = new UserCart(mProductNumber, date, mProductPrice, mProductName, mImageUrl);
-        cart.setQuantity(1);
-        Map<String, Object> cartValue = cart.toMap();
-        Map<String, Object> childUpdate = new HashMap<>();
-        Log.i(TAG, "username is "+mFirebaseUser.getUid());
-        mUserDatabase = mDatabase.child("users").child(userId).child("cart");
-        childUpdate.put("/"+mProductNumber+"/", cartValue);
-        mUserDatabase.updateChildren(childUpdate);
+        Log.i(TAG, "inside pushproducttocart method ");
+        Query mdataRef = FirebaseDatabase.getInstance().getReference()
+                .child("users").child(userId).child("cart").child(mProductNumber);
+
+        mdataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i(TAG, "inside ondatachange method "+dataSnapshot.getKey());
+                if (dataSnapshot.exists()){
+                    Log.i(TAG, "inside the if true statement "+mProductNumber);
+                    if (showToast==true){
+                        Toast.makeText(context, "Product is already in the cart",Toast.LENGTH_SHORT).show();
+                        showToast=false;
+                    }
+                }
+                else {
+                    Log.i(TAG, "product is not avaiable, trying to load the product");
+                    UserCart cart = new UserCart(mProductNumber, date, mProductPrice, mProductName, mImageUrl);
+                    cart.setQuantity(1);
+                    Map<String, Object> cartValue = cart.toMap();
+                    Map<String, Object> childUpdate = new HashMap<>();
+                    Log.i(TAG, "username is "+mFirebaseUser.getUid());
+                    mUserDatabase = mDatabase.child("users").child(userId).child("cart");
+                    childUpdate.put("/"+mProductNumber+"/", cartValue);
+                    mUserDatabase.updateChildren(childUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(Task<Void> task) {
+                            if (showToast==true){
+                                Toast.makeText(context, "Product added to the cart", Toast.LENGTH_SHORT).show();
+                                showToast=false;
+                            }
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(context, "Some error occured", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 

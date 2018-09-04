@@ -10,18 +10,18 @@
 
 
     <item
-        android:id="@+id/userNewAddressEntry"
-        android:title="Address" />
-
-    <item
         android:id="@+id/testFragmentOne"
         android:title="FirstTest" />
 
     <item
+        android:id="@+id/cartProduct"
+        android:title="My Cart"/>
+
+    <item
         android:id="@+id/userOrders"
-        android:title="Orders" />
+        android:title="My Orders" />
     <item
         android:id="@+id/userAccount"
-        android:title="Account"/>
+        android:title="My Account"/>
 
 </menu>

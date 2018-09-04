@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.senamit.stationaryhutpro.R;
 import com.example.senamit.stationaryhutpro.adapters.CartProductAdapter;
@@ -36,6 +37,7 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
     //    private UserCart userCart;
 
     private Button btnPayment;
+    private TextView txtTotalPrice;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -67,6 +69,7 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
         mUserId = mFirebaseUser.getUid();
 
         btnPayment =  view.findViewById(R.id.btnPayment);
+        txtTotalPrice = view.findViewById(R.id.txtTotalPrice);
 
         mRecyclerView = view.findViewById(R.id.recycler_cart);
         mLayoutManager = new LinearLayoutManager(context);
@@ -83,6 +86,15 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
                     userCartProduct.addAll(userCarts);
                     Log.i(TAG, "the size of cart is "+userCarts.size());
                     mAdapter.setCartProduct(userCarts);
+                    int size  = userCartProduct.size();
+                    int totalPrice =0;
+                    for (int i=0;i<size; i++){
+                        int quantity = userCartProduct.get(i).getQuantity();
+                        int productPrice = Integer.parseInt(userCartProduct.get(i).getProductPrice());
+                        int price = quantity * productPrice;
+                        totalPrice= totalPrice+price;
+                    }
+                    txtTotalPrice.setText(String.valueOf(totalPrice));
                 }
             }
         });

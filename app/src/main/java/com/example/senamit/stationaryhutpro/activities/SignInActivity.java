@@ -165,8 +165,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void writeNewUser(String userId, String phoneNumber) {
-        User user = new User(phoneNumber);
-        mDatabase.child("users").child(userId).setValue(user);
+        User user = new User(phoneNumber.trim());
+        mDatabase.child("users").child(userId).child("profile").setValue(user);
     }
 
     private void startPhoneNumberVerification(String phoneNumber) {

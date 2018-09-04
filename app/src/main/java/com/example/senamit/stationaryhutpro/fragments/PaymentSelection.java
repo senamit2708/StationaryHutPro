@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.senamit.stationaryhutpro.R;
 
@@ -51,13 +52,21 @@ public class PaymentSelection extends Fragment {
                 Log.i(TAG, "the selected radio button id is"+selectedPaymentMethod);
 
 
+
                 if (btnCOD.getId()==selectedPaymentMethod){
                     Log.i(TAG, "the selected radio button is "+btnCOD.getText());
                     Navigation.findNavController(view).navigate(R.id.action_paymentSelection_to_orderDetails);
                 }
                 if (btnNetBanking.getId()==selectedPaymentMethod){
                     Log.i(TAG, "the selected radio button is net banking");
+                    Toast.makeText(context, "Sorry Net Banking facility is not available",Toast.LENGTH_SHORT).show();
                 }
+                    if (btnPhonePe.getId() ==selectedPaymentMethod){
+                    Toast.makeText(context, "Sorry PhonePe facility is not available",Toast.LENGTH_SHORT).show();
+                }
+                if (selectedPaymentMethod==0){
+                        Toast.makeText(context, "Please select any payment gateway",Toast.LENGTH_SHORT).show();
+                    }
             }
         });
 

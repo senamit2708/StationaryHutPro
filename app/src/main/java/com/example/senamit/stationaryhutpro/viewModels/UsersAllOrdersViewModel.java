@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -67,7 +68,7 @@ public class UsersAllOrdersViewModel extends AndroidViewModel {
                         Log.i(TAG, "the product is  "+order);
                         orders.add(order);
                     }
-
+                    Collections.reverse(orders);
                     orderList.setValue(orders);
                     Log.i(TAG, "the orderlist is "+orders.size());
                 }else {

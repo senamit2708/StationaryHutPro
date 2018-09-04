@@ -154,13 +154,65 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="userAccount">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-815" />
+                            <option name="y" value="-998" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_userAccount_to_userAccountAddress">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_userAccount_to_userOrders">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_userAccount_to_userProfile">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="userAccountAddress">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1104" />
+                            <option name="y" value="-623" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_userAccountAddress_to_userAddressEntry">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="userAddressEntry">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-821" />
-                            <option name="y" value="26" />
+                            <option name="x" value="-775" />
+                            <option name="y" value="-244" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -209,6 +261,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="userProfile">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1277" />
+                            <option name="y" value="-999" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

@@ -15,7 +15,6 @@ import com.example.senamit.stationaryhutpro.models.Product;
 import com.example.senamit.stationaryhutpro.viewModels.ProductForSaleViewModel;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -87,7 +86,7 @@ public class ProductForSaleView extends Fragment {
             @Override
             public void onChanged(@Nullable List<Product> products) {
                 if (products!= null){
-                    Collections.reverse(products);
+//                    Collections.reverse(products);
                     Log.i(TAG, "inside the onchanged method, the size of product "+products.size());
                     mAdapter.setProduct(products);
                 }

@@ -96,4 +96,33 @@
         android:name="com.example.senamit.stationaryhutpro.fragments.OrderedProductDescription"
         android:label="activity_ordered_product_description"
         tools:layout="@layout/activity_ordered_product_description" />
+    <fragment
+        android:id="@+id/userAccount"
+        android:name="com.example.senamit.stationaryhutpro.fragments.UserAccount"
+        android:label="activity_user_account"
+        tools:layout="@layout/activity_user_account" >
+        <action
+            android:id="@+id/action_userAccount_to_userOrders"
+            app:destination="@id/userOrders" />
+        <action
+            android:id="@+id/action_userAccount_to_userAccountAddress"
+            app:destination="@id/userAccountAddress" />
+        <action
+            android:id="@+id/action_userAccount_to_userProfile"
+            app:destination="@id/userProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/userAccountAddress"
+        android:name="com.example.senamit.stationaryhutpro.fragments.UserAccountAddress"
+        android:label="activity_user_account_address"
+        tools:layout="@layout/activity_user_account_address" >
+        <action
+            android:id="@+id/action_userAccountAddress_to_userAddressEntry"
+            app:destination="@id/userAddressEntry" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="com.example.senamit.stationaryhutpro.fragments.UserProfile"
+        android:label="activity_user_profile"
+        tools:layout="@layout/activity_user_profile" ></fragment>
 </navigation>

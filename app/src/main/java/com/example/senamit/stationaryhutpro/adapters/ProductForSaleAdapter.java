@@ -73,6 +73,7 @@ public class ProductForSaleAdapter extends RecyclerView.Adapter<ProductForSaleAd
         }
     }
     public void setProduct(List<Product> mProduct){
+//        Collections.reverse(mProduct);
         product = mProduct;
         notifyDataSetChanged();
     }
