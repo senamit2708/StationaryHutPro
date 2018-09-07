@@ -31,6 +31,9 @@
             android:id="@+id/action_cartProduct_to_orderDelivery"
             app:clearTask="false"
             app:destination="@id/orderDelivery" />
+        <action
+            android:id="@+id/action_cartProduct_to_productForSaleView"
+            app:destination="@id/productForSaleView" />
     </fragment>
     <fragment
         android:id="@+id/testFragmentOne"

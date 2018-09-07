@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -84,14 +83,12 @@ public class ProductForSaleAdapter extends RecyclerView.Adapter<ProductForSaleAd
         TextView txtProductName;
         TextView txtProductPrice;
         ImageView imageProduct;
-        ImageButton btnFavorite;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtProductName = itemView.findViewById(R.id.txtProductName);
             txtProductNumber = itemView.findViewById(R.id.txtProductNumber);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
             imageProduct = itemView.findViewById(R.id.imageProduct);
-            btnFavorite = itemView.findViewById(R.id.btnFavorite);
             itemView.setOnClickListener(this);
         }
 

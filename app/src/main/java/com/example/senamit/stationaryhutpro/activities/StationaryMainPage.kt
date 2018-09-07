@@ -7,6 +7,7 @@ package com.example.senamit.stationaryhutpro.activities
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -19,8 +20,15 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.senamit.stationaryhutpro.CountDrawable
 import com.example.senamit.stationaryhutpro.R
 import com.google.android.material.navigation.NavigationView
+
+
+
+
+
+
 
 
 
@@ -82,6 +90,7 @@ class StationaryMainPage : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val retValue = super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.main_menu, menu)
+
         return retValue
     }
 
@@ -91,6 +100,30 @@ class StationaryMainPage : AppCompatActivity() {
                 || super.onOptionsItemSelected(item)
 
     }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+
+        var menuItem = menu?.findItem(R.id.cartProduct)
+        val icon = menuItem?.icon as LayerDrawable
+
+        val badge: CountDrawable
+
+        // Reuse drawable if possible
+        val reuse = icon.findDrawableByLayerId(R.id.ic_group_count)
+        if (reuse != null && reuse is CountDrawable) {
+            badge = reuse
+        } else {
+            badge = CountDrawable(this)
+        }
+
+
+        badge.setCount("8")
+        icon.mutate()
+        icon.setDrawableByLayerId(R.id.ic_group_count, badge)
+                return super.onPrepareOptionsMenu(menu)
+
+    }
+
 
     fun hideSoftKeyboard(view: View) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
