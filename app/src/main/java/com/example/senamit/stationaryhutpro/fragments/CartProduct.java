@@ -63,6 +63,7 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         context= container.getContext();
         View view = inflater.inflate(R.layout.activity_cart_product, container, false);
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -150,4 +151,10 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
         mViewModel.addProductQuantityToCart(productNumber, quantity, price);
 
     }
+
+
+
+
+
+
 }

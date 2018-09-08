@@ -6,19 +6,5 @@
         android:icon="@drawable/actionbar_group_icon"
         app:showAsAction="always"
         android:title="cart" />
-    <!--<item-->
-        <!--android:id="@+id/test1"-->
-        <!--android:icon="@drawable/ic_shopping_cart_white"-->
-        <!--android:orderInCategory="100"-->
-        <!--android:showAsAction="always"-->
-        <!--android:title="Shopping Cart"-->
-        <!--app:showAsAction="never" />-->
-    <!--<item-->
-        <!--android:id="@+id/test2"-->
-        <!--android:icon="@drawable/ic_shopping_cart_white"-->
-        <!--android:orderInCategory="100"-->
-        <!--android:showAsAction="always"-->
-        <!--android:title="Shopping Cart"-->
-        <!--app:showAsAction="never" />-->
 
 </menu>

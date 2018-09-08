@@ -1,13 +1,8 @@
 package com.example.senamit.stationaryhutpro.activities
 
-//import android.support.v4.widget.DrawerLayout
-//import android.support.v7.app.AppCompatActivity
-//import android.support.v7.widget.Toolbar
-
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,28 +11,23 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.example.senamit.stationaryhutpro.CountDrawable
 import com.example.senamit.stationaryhutpro.R
+import com.example.senamit.stationaryhutpro.viewModels.ProductCartViewModel
 import com.google.android.material.navigation.NavigationView
-
-
-
-
-
-
-
-
-
-
 
 
 class StationaryMainPage : AppCompatActivity() {
 
     private val TAG = SignInActivity::class.java.simpleName
+
+    private var mViewModel: ProductCartViewModel? = null
+    private var count = 0
+
 
     private var drawerLayout: DrawerLayout? = null
 
@@ -60,6 +50,11 @@ class StationaryMainPage : AppCompatActivity() {
 
         setupActionBar(navController)
         setupNavigationMenu(navController)
+
+        mViewModel = ViewModelProviders.of(this).get(ProductCartViewModel::class.java)
+
+
+
 
 
     }
@@ -89,7 +84,7 @@ class StationaryMainPage : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val retValue = super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.main_menu, menu)
+        menuInflater.inflate(R.menu.menu_empty, menu)
 
         return retValue
     }
@@ -101,28 +96,38 @@ class StationaryMainPage : AppCompatActivity() {
 
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-
-        var menuItem = menu?.findItem(R.id.cartProduct)
-        val icon = menuItem?.icon as LayerDrawable
-
-        val badge: CountDrawable
-
-        // Reuse drawable if possible
-        val reuse = icon.findDrawableByLayerId(R.id.ic_group_count)
-        if (reuse != null && reuse is CountDrawable) {
-            badge = reuse
-        } else {
-            badge = CountDrawable(this)
-        }
-
-
-        badge.setCount("8")
-        icon.mutate()
-        icon.setDrawableByLayerId(R.id.ic_group_count, badge)
-                return super.onPrepareOptionsMenu(menu)
-
-    }
+//    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+//
+//        var menuItem = menu?.findItem(R.id.cartProduct)
+//        val icon = menuItem?.icon as LayerDrawable
+//
+//        val badge: CountDrawable
+//
+//        // Reuse drawable if possible
+//        val reuse = icon.findDrawableByLayerId(R.id.ic_group_count)
+//        if (reuse != null && reuse is CountDrawable) {
+//            badge = reuse
+//        } else {
+//            badge = CountDrawable(this)
+//        }
+//
+//        var mUserId: String = FirebaseAuth.getInstance().getCurrentUser()!!.uid
+//        mViewModel!!.getCartProductCount(mUserId).observe(this, Observer { userCarts ->
+//            if (userCarts != null) {
+//                Log.i(TAG, "size of cart1 is "+userCarts.size)
+//                count = userCarts.size
+//                badge.setCount(count.toString())
+//
+//            } else {
+//
+//            }
+//        })
+//
+//        icon.mutate()
+//        icon.setDrawableByLayerId(R.id.ic_group_count, badge)
+//                return super.onPrepareOptionsMenu(menu)
+//
+//    }
 
 
     fun hideSoftKeyboard(view: View) {

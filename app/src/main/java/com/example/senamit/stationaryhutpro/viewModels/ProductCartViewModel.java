@@ -29,11 +29,14 @@ public class ProductCartViewModel extends AndroidViewModel {
     private static DatabaseReference PRODUCT_IN_CART;
     private static DatabaseReference PRODUCT_DETAILS;
     private static DatabaseReference PRODUCT_REMOVE;
+    private static DatabaseReference PRODUCT_COUNT;
     private FirebaseQueryLiveData cartFirebaseQueryLiveData ;
     private FirebaseQueryLiveData productFirebaseQueryLiveData;
+    private FirebaseQueryLiveData cartCountQueryLiveData;
 
     private MediatorLiveData<List<UserCart>> cartLiveData;
     private MediatorLiveData<List<Product>>  productLiveData;
+    private MediatorLiveData<List<UserCart>> cartCountLiveData;
 
     private MutableLiveData<List<UserCart>> orderedProductList = new MutableLiveData<>();
 
@@ -139,6 +142,37 @@ public class ProductCartViewModel extends AndroidViewModel {
         mdataRef.child("users").child(mUserId).child("cart").child(productNumber).child("quantity").setValue(quantity);
 //        mdataRef.child("users").child(mUserId).child("cart").child(productNumber).child("totalPice").setValue(totalPrice);
 
+    }
+
+    public LiveData<List<UserCart>> getCartProductCount(String userId){
+        if (cartCountLiveData==null){
+            cartCount(userId);
+        }
+        return cartCountLiveData;
+    }
+
+    private void cartCount(String userId) {
+        PRODUCT_COUNT = FirebaseDatabase.getInstance()
+                .getReference("/users/"+userId+"/cart");
+
+        cartCountQueryLiveData = new FirebaseQueryLiveData(PRODUCT_COUNT);
+        cartCountLiveData = new MediatorLiveData<>();
+        cartCountLiveData.addSource(cartCountQueryLiveData, new Observer<DataSnapshot>() {
+            @Override
+            public void onChanged(@Nullable final DataSnapshot dataSnapshot) {
+                List<UserCart> listProduct = new ArrayList<>();
+                if (dataSnapshot!= null){
+                    for (DataSnapshot cartProductDataSnapshot : dataSnapshot.getChildren()){
+                        final UserCart cartProduct = cartProductDataSnapshot.getValue(UserCart.class);
+                        listProduct.add(cartProduct);
+                    }
+                    cartCountLiveData.postValue(listProduct);
+                }
+                else {
+                    cartCountLiveData.setValue(null);
+                }
+            }
+        });
     }
 
 }
