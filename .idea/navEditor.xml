@@ -142,7 +142,24 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_productForSaleView_to_signInUser">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="signInUser">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1531" />
+                            <option name="y" value="-873" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

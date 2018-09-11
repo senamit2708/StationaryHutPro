@@ -40,7 +40,7 @@ public class ProductOrderedAdapter extends RecyclerView.Adapter<ProductOrderedAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.i(TAG, "inside onbind view holder "+mOrderList.get(position).getProductNumber());
         Picasso.with(context).load(mOrderList.get(position).getImageUrl()).into(holder.imageProduct);
-        holder.txtProductName.setText(mOrderList.get(position).getProductNumber());
+        holder.txtProductName.setText(mOrderList.get(position).getProductName());
         holder.txtProductPrice.setText(mOrderList.get(position).getProductPrice());
         holder.txtProductNumber.setText(mOrderList.get(position).getProductNumber());
         holder.txtProductQuantity.setText(Integer.toString(mOrderList.get(position).getQuantity()));

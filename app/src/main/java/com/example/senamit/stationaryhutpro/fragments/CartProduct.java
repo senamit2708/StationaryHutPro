@@ -1,11 +1,13 @@
 package com.example.senamit.stationaryhutpro.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -149,12 +151,21 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
     public void funAddProductQuantity(String productNumber, int quantity, int price) {
         Log.i(TAG, "inside funaddproductqunaity "+ productNumber +"quantity"+quantity);
         mViewModel.addProductQuantityToCart(productNumber, quantity, price);
+        showSoftwareKeyboard(false);
 
     }
 
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        showSoftwareKeyboard(false);
+    }
+    protected void showSoftwareKeyboard(boolean showKeyboard){
+        final Activity activity = getActivity();
+        final InputMethodManager inputManager = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-
-
-
+        inputManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), showKeyboard ? InputMethodManager.SHOW_FORCED : InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 }
+

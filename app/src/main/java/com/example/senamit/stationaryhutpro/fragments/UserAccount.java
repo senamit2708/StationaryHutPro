@@ -1,5 +1,6 @@
 package com.example.senamit.stationaryhutpro.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.senamit.stationaryhutpro.R;
+import com.example.senamit.stationaryhutpro.activities.SignInActivity;
 import com.example.senamit.stationaryhutpro.models.User;
 import com.example.senamit.stationaryhutpro.viewModels.UserProfileViewModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +30,7 @@ public class UserAccount extends Fragment implements View.OnClickListener{
     private Button btnViewAllOrderes;
     private Button btnMyAddresses;
     private Button btnEditProfile;
+    private Button btnLogout;
     private TextView txtFirstName;
     private TextView txtLastName;
     private TextView txtMobileNumber;
@@ -55,9 +58,11 @@ public class UserAccount extends Fragment implements View.OnClickListener{
         btnViewAllOrderes = view.findViewById(R.id.btnviewAllOrders);
         btnMyAddresses = view.findViewById(R.id.btnMyAddresses);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        btnLogout = view.findViewById(R.id.btnLogout);
         btnViewAllOrderes.setOnClickListener(this);
         btnMyAddresses.setOnClickListener(this);
         btnEditProfile.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
 
         txtFirstName = view.findViewById(R.id.txtFirstName);
         txtLastName = view.findViewById(R.id.txtLastName);
@@ -91,28 +96,20 @@ public class UserAccount extends Fragment implements View.OnClickListener{
             case R.id.btnMyAddresses:
                 Log.i(TAG, "inside the btn of my address");
                 Navigation.findNavController(getActivity(), R.id.btnMyAddresses).navigate(R.id.action_userAccount_to_userAccountAddress);
+                break;
+            case R.id.btnLogout:
+                logoutOfThisApp();
+                break;
             default:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             }
         }
+
+    private void logoutOfThisApp() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(getActivity(), SignInActivity.class);
+        startActivity(intent);
+
     }
+}
 //}

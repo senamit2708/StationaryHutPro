@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.senamit.stationaryhutpro.R
 import com.example.senamit.stationaryhutpro.viewModels.ProductCartViewModel
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 
 class StationaryMainPage : AppCompatActivity() {
@@ -27,6 +28,7 @@ class StationaryMainPage : AppCompatActivity() {
 
     private var mViewModel: ProductCartViewModel? = null
     private var count = 0
+
 
 
     private var drawerLayout: DrawerLayout? = null
@@ -52,11 +54,6 @@ class StationaryMainPage : AppCompatActivity() {
         setupNavigationMenu(navController)
 
         mViewModel = ViewModelProviders.of(this).get(ProductCartViewModel::class.java)
-
-
-
-
-
     }
 
     private fun setupActionBar(navController: NavController) {
@@ -70,8 +67,6 @@ class StationaryMainPage : AppCompatActivity() {
 
         }
     }
-
-
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(drawerLayout,
@@ -96,38 +91,6 @@ class StationaryMainPage : AppCompatActivity() {
 
     }
 
-//    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-//
-//        var menuItem = menu?.findItem(R.id.cartProduct)
-//        val icon = menuItem?.icon as LayerDrawable
-//
-//        val badge: CountDrawable
-//
-//        // Reuse drawable if possible
-//        val reuse = icon.findDrawableByLayerId(R.id.ic_group_count)
-//        if (reuse != null && reuse is CountDrawable) {
-//            badge = reuse
-//        } else {
-//            badge = CountDrawable(this)
-//        }
-//
-//        var mUserId: String = FirebaseAuth.getInstance().getCurrentUser()!!.uid
-//        mViewModel!!.getCartProductCount(mUserId).observe(this, Observer { userCarts ->
-//            if (userCarts != null) {
-//                Log.i(TAG, "size of cart1 is "+userCarts.size)
-//                count = userCarts.size
-//                badge.setCount(count.toString())
-//
-//            } else {
-//
-//            }
-//        })
-//
-//        icon.mutate()
-//        icon.setDrawableByLayerId(R.id.ic_group_count, badge)
-//                return super.onPrepareOptionsMenu(menu)
-//
-//    }
 
 
     fun hideSoftKeyboard(view: View) {
@@ -143,6 +106,14 @@ class StationaryMainPage : AppCompatActivity() {
         val currentFocusedView = activity.currentFocus
         if (currentFocusedView != null) {
             inputManager.hideSoftInputFromWindow(currentFocusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        }
+    }
+
+    fun getUserId():String{
+        if (FirebaseAuth.getInstance().uid == null){
+            return FirebaseAuth.getInstance().uid.toString()
+        }else{
+            return "null"
         }
     }
 

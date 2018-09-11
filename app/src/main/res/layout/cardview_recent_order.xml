@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:layout_editor_absoluteY="25dp"
-    android:layout_marginBottom="30dp">
+    android:layout_marginBottom="20dp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp">
+            android:layout_height="300dp">
 
             <ImageView
                 android:id="@+id/imageProduct"
@@ -147,11 +147,12 @@
                 android:text="status"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
                 app:layout_constraintStart_toEndOf="@+id/textView7" />
+
             <View
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginBottom="60dp"
+                android:layout_height="1dp"
+                android:layout_marginBottom="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

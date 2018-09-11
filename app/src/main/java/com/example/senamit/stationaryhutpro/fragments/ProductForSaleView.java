@@ -61,6 +61,10 @@ public class ProductForSaleView extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        if (((StationaryMainPage)getActivity()).getUserId()==null){
+////            Navigation.findNavController(getCont).navigate(R.id.action_productForSaleView_to_signInUser);
+//            NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_productForSaleView_to_signInUser);
+//        }
         mCartViewModel = ViewModelProviders.of(getActivity()).get(ProductCartViewModel.class);
     }
 
@@ -86,11 +90,11 @@ public class ProductForSaleView extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setItemViewCacheSize(10);
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
 
         mViewModel.getDataSnapshotLiveData().observe(this, new Observer<List<Product>>() {
@@ -130,6 +134,7 @@ public class ProductForSaleView extends Fragment {
         } else {
             badge = new CountDrawable(context);
         }
+                mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mCartViewModel.getCartProductCount(mUserId).observe(this, new Observer<List<UserCart>>() {
             @Override
             public void onChanged(List<UserCart> userCarts) {
