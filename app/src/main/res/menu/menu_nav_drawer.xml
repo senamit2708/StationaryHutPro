@@ -5,8 +5,8 @@
         android:id="@+id/productForSaleNotebook"
         android:title="Notebook"/>
     <item
-        android:id="@+id/productForSalePen"
-        android:title="Pen and Pencil"/>
+        android:id="@+id/navDrawerStationaryItem"
+        android:title="Stationary"/>
 
 
     <item

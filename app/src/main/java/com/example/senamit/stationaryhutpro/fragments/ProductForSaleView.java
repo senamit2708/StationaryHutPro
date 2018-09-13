@@ -61,10 +61,6 @@ public class ProductForSaleView extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (((StationaryMainPage)getActivity()).getUserId()==null){
-////            Navigation.findNavController(getCont).navigate(R.id.action_productForSaleView_to_signInUser);
-//            NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_productForSaleView_to_signInUser);
-//        }
         mCartViewModel = ViewModelProviders.of(getActivity()).get(ProductCartViewModel.class);
     }
 

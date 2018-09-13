@@ -55,6 +55,7 @@ public class ProductCartViewModel extends AndroidViewModel {
     public LiveData<List<UserCart>> getCartData(String userId){
         mUserId = userId;
         if (cartLiveData==null){
+            Log.i(TAG, "inside if statement of livedata");
             loadCartLiveData(userId);
         }
         return cartLiveData;

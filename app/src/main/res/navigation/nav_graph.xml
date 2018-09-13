@@ -12,9 +12,6 @@
         <action
             android:id="@+id/action_productForSaleView_to_productDescription"
             app:destination="@id/productDescription" />
-        <action
-            android:id="@+id/action_productForSaleView_to_signInUser"
-            app:destination="@id/signInUser" />
     </fragment>
     <fragment
         android:id="@+id/productDescription"
@@ -132,8 +129,17 @@
         android:label="Edit Profile"
         tools:layout="@layout/activity_user_profile"></fragment>
     <fragment
-        android:id="@+id/signInUser"
-        android:name="com.example.senamit.stationaryhutpro.fragments.SignInUser"
-        android:label="fragment_sign_in_user"
-        tools:layout="@layout/fragment_sign_in_user" />
+        android:id="@+id/navDrawerStationaryItem"
+        android:name="com.example.senamit.stationaryhutpro.fragments.NavDrawerStationaryItem"
+        android:label="Stationary item"
+        tools:layout="@layout/activity_navdrawer_stationaryitem" >
+        <action
+            android:id="@+id/action_navDrawerStationaryItem_to_categoryProductView"
+            app:destination="@id/categoryProductView" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryProductView"
+        android:name="com.example.senamit.stationaryhutpro.fragments.CategoryProductView"
+        android:label="activity_category_product_view"
+        tools:layout="@layout/activity_category_product_view" />
 </navigation>

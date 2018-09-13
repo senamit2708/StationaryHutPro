@@ -13,6 +13,7 @@ public class Product {
     String productNumber;
     String productPrice;
     String imageUrl;
+    String category;
 
     public Product(String productName, String productNumber, String productPrice, String imageUrl) {
         this.productName = productName;
@@ -20,6 +21,14 @@ public class Product {
         this.productPrice = productPrice;
         this.imageUrl = imageUrl;
 
+    }
+
+    public Product(String productName, String productNumber, String productPrice, String imageUrl, String category) {
+        this.productName = productName;
+        this.productNumber = productNumber;
+        this.productPrice = productPrice;
+        this.imageUrl = imageUrl;
+        this.category = category;
     }
 
     public Product() {
@@ -55,6 +64,14 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Exclude

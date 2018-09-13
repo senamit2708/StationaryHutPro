@@ -42,6 +42,15 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
     private Button btnPayment;
     private Button btnStartBuying;
     private TextView txtTotalPrice;
+    private TextView txtTotalItemCount;
+    private TextView txtItemFinalPrice;
+    private TextView txtDeliveryPrice;
+    private TextView txtFinalPrice;
+
+    private int deliveryCharge = 50;
+    private int minTotalPrice = 500;
+    private TextView txtShippingHint;
+
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -78,6 +87,12 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
         btnPayment =  view.findViewById(R.id.btnPayment);
         btnStartBuying = view.findViewById(R.id.btnStartBuying);
         txtTotalPrice = view.findViewById(R.id.txtTotalPrice);
+        txtTotalItemCount = view.findViewById(R.id.txtTotalItemCount);
+        txtItemFinalPrice = view.findViewById(R.id.txtItemFinalPrice);
+        txtDeliveryPrice = view.findViewById(R.id.txtDeliveryPrice);
+        txtFinalPrice = view.findViewById(R.id.txtFinalPrice);
+        txtShippingHint = view.findViewById(R.id.txtShippingHint);
+
         mConstraint = view.findViewById(R.id.view_coordinate);
         mEmptyConstraint = view.findViewById(R.id.emptyView);
         mEmptyConstraint.setVisibility(View.GONE);
@@ -106,15 +121,32 @@ public class CartProduct extends Fragment implements CartProductAdapter.ButtonCl
                         int totalPrice =0;
                         for (int i=0;i<size; i++){
                             int quantity = userCartProduct.get(i).getQuantity();
+                            //i think here issue occurs if internet is slow...cross check i have to do here
+                            //i m thinking to use try catch block or something else...
                             int productPrice = Integer.parseInt(userCartProduct.get(i).getProductPrice());
                             int price = quantity * productPrice;
                             totalPrice= totalPrice+price;
                         }
-                        txtTotalPrice.setText(String.valueOf(totalPrice));
+                        txtTotalItemCount.setText("Price("+size+" items)");
+                        txtItemFinalPrice.setText(String.valueOf(totalPrice));
+                        if (totalPrice<minTotalPrice){
+                            txtDeliveryPrice.setText(String.valueOf(deliveryCharge));
+                            int total = totalPrice+deliveryCharge;
+                            txtTotalPrice.setText(String.valueOf(total));
+                            txtFinalPrice.setText(String.valueOf(total));
+                            txtShippingHint.setText("Total price above "+getString(R.string.Rs)+""+minTotalPrice+" is of free delivery");
+                            txtShippingHint.setVisibility(View.VISIBLE);
+                        }else {
+                            txtTotalPrice.setText(String.valueOf(totalPrice));
+                            txtFinalPrice.setText(String.valueOf(totalPrice));
+                            txtDeliveryPrice.setText("Free");
+                            txtShippingHint.setVisibility(View.INVISIBLE);
+                        }
                     }else {
                         Log.i(TAG,"inside else statement of user cart");
                         mConstraint.setVisibility(View.GONE);
                         mEmptyConstraint.setVisibility(View.VISIBLE);
+
                     }
 
                 }
