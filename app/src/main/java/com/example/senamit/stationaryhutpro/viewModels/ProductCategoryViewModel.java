@@ -65,4 +65,10 @@ public class ProductCategoryViewModel extends AndroidViewModel {
             }
         });
     }
+
+//    public void getSortTypeProduct(int sortType) {
+//        if (productLiveData!= null){
+//
+//        }
+//    }
 }

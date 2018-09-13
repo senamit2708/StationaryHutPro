@@ -16,10 +16,14 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProductAdapter.ViewHolder> {
     private static final String TAG = CategoryProductAdapter.class.getSimpleName();
+    private static final String PRODUCT_KEY = "product_key";
+    private static final String PRODUCT_INDEX = "product_index";
+
     private Context context;
     private List<Product> product;
     String productId;
@@ -70,7 +74,7 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView txtProductNumber;
         TextView txtProductName;
         TextView txtProductPrice;
@@ -81,6 +85,18 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
             txtProductNumber = itemView.findViewById(R.id.txtProductNumber);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
             imageProduct = itemView.findViewById(R.id.imageProduct);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int clickedItemIndex= getAdapterPosition();
+            productId= product.get(clickedItemIndex).getProductNumber();
+            bundle = new Bundle();
+            bundle.putString(PRODUCT_KEY, productId);
+            bundle.putInt(PRODUCT_INDEX, clickedItemIndex);
+            Log.i(TAG, "inside createonclicklistener recycler adapter, productId is"+productId);
+            Navigation.findNavController(view).navigate(R.id.action_categoryProductView_to_productDescription, bundle);
         }
     }
 }

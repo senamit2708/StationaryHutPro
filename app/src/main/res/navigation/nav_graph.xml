@@ -141,5 +141,9 @@
         android:id="@+id/categoryProductView"
         android:name="com.example.senamit.stationaryhutpro.fragments.CategoryProductView"
         android:label="activity_category_product_view"
-        tools:layout="@layout/activity_category_product_view" />
+        tools:layout="@layout/activity_category_product_view" >
+        <action
+            android:id="@+id/action_categoryProductView_to_productDescription"
+            app:destination="@id/productDescription" />
+    </fragment>
 </navigation>
